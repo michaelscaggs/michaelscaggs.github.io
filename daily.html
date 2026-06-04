@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Briefing</title>
+  <style type="text/css">
+    body {
+      width: 100% !important;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f7f6;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    .wrapper {
+      width: 100%;
+      table-layout: fixed;
+      background-color: #f4f7f6;
+      padding: 40px 0;
+    }
+    .main {
+      background-color: #ffffff;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 600px;
+      border-spacing: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .header {
+      background-color: #1a365d;
+      padding: 30px;
+      text-align: center;
+      color: #ffffff;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 1px;
+    }
+    .section {
+      padding: 30px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #2d3748;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+    /* Stock Ticker Styles */
+    .ticker-container {
+      display: flex;
+      justify-content: space-between;
+      background: #f7fafc;
+      padding: 15px;
+      border-radius: 6px;
+    }
+    .stock-item {
+      text-align: center;
+      width: 32%;
+    }
+    .stock-symbol {
+      font-weight: bold;
+      color: #1a365d;
+    }
+    .stock-price {
+      font-size: 16px;
+      margin: 5px 0;
+    }
+    .stock-change.up { color: #38a169; }
+    .stock-change.down { color: #e53e3e; }
+    
+    /* Weather Widget Styles */
+    .weather-widget {
+      display: flex;
+      align-items: center;
+      background: #ebf8ff;
+      padding: 20px;
+      border-radius: 6px;
+    }
+    .weather-temp {
+      font-size: 48px;
+      font-weight: bold;
+      color: #2b6cb0;
+      margin-right: 20px;
+    }
+    .weather-details {
+      flex-grow: 1;
+    }
+    .weather-loc {
+      font-size: 18px;
+      font-weight: bold;
+      color: #2d3748;
+    }
+    .weather-cond {
+      color: #4a5568;
+    }
+
+    /* News Stories Styles */
+    .news-item {
+      margin-bottom: 25px;
+    }
+    .news-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #2b6cb0;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .news-desc {
+      font-size: 14px;
+      color: #4a5568;
+      margin: 0;
+    }
+    .footer {
+      background-color: #718096;
+      color: #ffffff;
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <center class="wrapper">
+    <table class="main" width="100%">
+      <!-- Header -->
+      <tr>
+        <td class="header">
+          <h1>YOUR DAILY BRIEFING</h1>
+        </td>
+      </tr>
+
+      <!-- Stock Ticker Section -->
+      <tr>
+        <td class="section">
+          <h2 class="section-title">Market Snapshot</h2>
+          <div class="ticker-container">
+            <div class="stock-item">
+              <div class="stock-symbol">SPY</div>
+              <div class="stock-price">$580.25</div>
+              <div class="stock-change up">▲ +1.2%</div>
+            </div>
+            <div class="stock-item">
+              <div class="stock-symbol">AAPL</div>
+              <div class="stock-price">$225.50</div>
+              <div class="stock-change down">▼ -0.4%</div>
+            </div>
+            <div class="stock-item">
+              <div class="stock-symbol">MSFT</div>
+              <div class="stock-price">$430.80</div>
+              <div class="stock-change up">▲ +0.8%</div>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <!-- Weather Section (Frisco, TX) -->
+      <tr>
+        <td class="section">
+          <h2 class="section-title">Local Weather</h2>
+          <div class="weather-widget">
+            <div class="weather-temp">88°</div>
+            <div class="weather-details">
+              <div class="weather-loc">Frisco, TX</div>
+              <div class="weather-cond">Sunny & Clear</div>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <!-- Top News Stories Section -->
+      <tr>
+        <td class="section">
+          <h2 class="section-title">Top Headlines</h2>
+          
+          <div class="news-item">
+            <a href="#" class="news-title">Global Markets React to New Geopolitical Shifts</a>
+            <p class="news-desc">International talks continue as major economies adjust their trade and energy policies.</p>
+          </div>
+
+          <div class="news-item">
+            <a href="#" class="news-title">New Study Shows Changes in Weather Patterns</a>
+            <p class="news-desc">Meteorologists are noting shifts in global climate patterns affecting regional summer forecasts.</p>
+          </div>
+
+          <div class="news-item">
+            <a href="#" class="news-title">Major Summer Event Preparations Begin</a>
+            <p class="news-desc">Cities across North America are ramping up preparations for upcoming major international tournaments.</p>
+          </div>
+        </td>
+      </tr>
+
+      <!-- Footer -->
+      <tr>
+        <td class="footer">
+          <p>You are receiving this daily update because you subscribed to our newsletter.</p>
+          <p><a href="#" style="color: #ffffff; text-decoration: underline;">Unsubscribe</a> | <a href="#" style="color: #ffffff; text-decoration: underline;">Update Preferences</a></p>
+        </td>
+      </tr>
+    </table>
+  </center>
+</body>
+</html>
