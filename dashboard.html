@@ -35,12 +35,6 @@
             text-align: center;
             width: 150px;
         }
-        .clock-box2 {
-            border: none;
-            padding: 10px;
-            text-align: center;
-            width: 250px;
-        }
 
         /* Top Navbar */
         .navbar {
@@ -165,7 +159,8 @@
     <div class="sticky-header">
         <!-- World Clock -->
         <div class="world-clock-container">
-            <div class="clock-box2">Today's Date: <span id="today"></span></div>
+            <div class="clock-box">Today's Date: </div>
+            <div class="clock-box"><span id="today"></span></div>
             <div class="clock-box">UTC: <span id="utc"></span></div>
             <div class="clock-box">ET: <span id="est"></span></div>
             <div class="clock-box">CT: <span id="cst"></span></div>
@@ -174,70 +169,78 @@
             <div class="clock-box">PT: <span id="pst"></span></div>
             <div class="clock-box">HT: <span id="hst"></span></div>
         </div>
-        <!-- Top Navbar -->
-        <nav class="navbar">
-            <a href="http://www.cnn.com">News</a>
-            <a href="http://www.espn.com">Sports</a>
-            <a href="http://www.weather.com">Weather</a>
-            <div class="dropdown">
-                <button class="dropbtn">
-                    Research Links
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="http://www.youtube.com">You Tube</a>
-                    <a href="http://www.google.com">Google</a>
-                    <a href="http://www.stackoverflow.com">Stack Overflow</a>
+        <div class="sticky-header">
+            <!-- World Clock -->
+            <div class="world-clock-container">
+                <div class="clock-box">
+                    <tv-ticker-tape symbols="NASDAQ:AAPL,BMV:TSLA,BMV:MSFT,NASDAQ:NVDA,NASDAQ:AMZN,NASDAQ:GOOGL,NASDAQ:META,NYSE:JPM,NYSE:XOM,NYSE:BRK.B,TVC:SPX,FRED:DJIA,NASDAQ:IXIC" item-size="compact"></tv-ticker-tape>
                 </div>
             </div>
-            <div class="dropdown">
-                <button class="dropbtn">
-                    Social Media
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="http://www.facebook.com">Facebook</a>
-                    <a href="http://www.twitter.com">Twitter</a>
-                    <a href="http://www.linkedin.com">Linked In</a>
+            <!-- Top Navbar -->
+            <nav class="navbar">
+                <a href="http://www.cnn.com">News</a>
+                <a href="http://www.espn.com">Sports</a>
+                <a href="http://www.weather.com">Weather</a>
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        Research Links
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="http://www.youtube.com">You Tube</a>
+                        <a href="http://www.google.com">Google</a>
+                        <a href="http://www.stackoverflow.com">Stack Overflow</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        Social Media
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="http://www.facebook.com">Facebook</a>
+                        <a href="http://www.twitter.com">Twitter</a>
+                        <a href="http://www.linkedin.com">Linked In</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <main>
+            <div class="container">
+                <div class="box" style="background-color:black;">
+                    <iframe class="scaled-iframe" src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FNew_York&showPrint=0&showTitle=0&showTz=0&src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23795548" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+                </div>
+                <div class="box" style="background-color:black;">
+                    <iframe class="scaled-iframe" width="560" height="315" src="https://www.youtube.com/embed/1EChsxRI4Zg?si=m7_CZD1UWoH_-_QT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
             </div>
-        </nav>
-    </div>
-    <main>
-        <div class="container">
-            <div class="box" style="background-color:black;">
-                <iframe class="scaled-iframe" src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FNew_York&showPrint=0&showTitle=0&showTz=0&src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23795548" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+            <div class="container2">
+                <div class="box2" style="background-color:black;">
+                    <iframe src="https://www.snagajob.com/search?q=part+time+remote"></iframe>
+                </div>
             </div>
-            <div class="box" style="background-color:black;">
-                <iframe class="scaled-iframe" width="560" height="315" src="https://www.youtube.com/embed/1EChsxRI4Zg?si=m7_CZD1UWoH_-_QT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-        </div>
-        <div class="container2">
-            <div class="box2" style="background-color:black;">
-                <iframe src="http://michaelscaggs.github.io/content.html"></iframe>
-            </div>
-        </div>
-    </main>
-    <script>
-        function updateClocks() {
-            const now = new Date();
+        </main>
+        <script>
+            function updateClocks() {
+                const now = new Date();
 
-            document.getElementById("utc").textContent = now.toUTCString().split(' ')[4];
-            document.getElementById("est").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/New_York" });
-            document.getElementById("cst").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Chicago" });
-            document.getElementById("mst").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Denver" });
-            document.getElementById("ast").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Phoenix" });
-            document.getElementById("pst").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Los_Angeles" });
-            document.getElementById("hst").textContent = now.toLocaleTimeString("en-US", { timeZone: "Pacific/Honolulu" });
-        }
+                document.getElementById("utc").textContent = now.toUTCString().split(' ')[4];
+                document.getElementById("est").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/New_York" });
+                document.getElementById("cst").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Chicago" });
+                document.getElementById("mst").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Denver" });
+                document.getElementById("ast").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Phoenix" });
+                document.getElementById("pst").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Los_Angeles" });
+                document.getElementById("hst").textContent = now.toLocaleTimeString("en-US", { timeZone: "Pacific/Honolulu" });
+            }
 
-        // Update every second
-        setInterval(updateClocks, 1000);
-        updateClocks(); // Initial call
-    </script>
-    <script>
-        document.getElementById('today').textContent =
-            new Date().toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric' });
-    </script>
+            // Update every second
+            setInterval(updateClocks, 1000);
+            updateClocks(); // Initial call
+        </script>
+        <script>
+            document.getElementById('today').textContent =
+                new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        </script>
+        <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-ticker-tape.js"></script>
 </body>
 </html>
