@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Use border-box to include padding and border in the element's total width */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+        }
+
+        .sticky-header {
+            position: -webkit-sticky; /* For Safari */
+            position: sticky;
+            top: 0;
+            background-color: white; /* Prevents text from overlapping */
+            z-index: 1000; /* Ensures it stays on top */
+            width: 100%;
+        }
+
+        .world-clock-container {
+            background-color: #000;
+            justify-content: left;
+            display: flex;
+            gap: 0px;
+            height: 30px;
+            font-family: console;
+            color: #4AF626;
+        }
+
+        .clock-box {
+            border: none;
+            padding: 10px;
+            text-align: center;
+            width: 500px;
+        }
+
+        .clock-box2 {
+            border: none;
+            padding: 10px;
+            text-align: center;
+            width: 150px;
+        }
+        /* Top Navbar */
+        .navbar {
+            background-color: #333;
+            top: 0;
+            width: 100%;
+            height: 30px;
+            display: flex;
+            color: white;
+            z-index: 1000;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            width: 100%;
+            padding: 50px;
+            overflow: auto; /* Clears floats so container doesn't collapse */
+            border: 5px;
+            border-color: lightgreen;
+            background-color: black;
+        }
+  .scaled-iframe {
+    /* The Zoom Effect */
+    transform: scale(0.90); /* Zoom to 75% */
+    transform-origin: 0 0;  /* Ensures scaling starts from top-left */
+  }
+		    /* Banner Styling */
+    .affirmation-banner {
+        width: 100%;
+        background: linear-gradient(135deg, #ff8200, #4B4B4B);
+        color: #ffffff;
+        text-align: center;
+        padding: 40px 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    .affirmation-banner p {
+        margin: 0;
+        font-size: 1.0rem;
+        font-weight: bold;
+        line-height: 1.0;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    </style>
+    <title>Daily Update</title>
+    <base target="_blank">
+</head>
+<body>
+    <div class="sticky-header">
+        <!-- World Clock -->
+        <div class="world-clock-container">
+            <div class="clock-box"><a href="http://https://michaelscaggs.github.io/dashboard.html">Dashboard</a></div>
+            <div class="clock-box">Today's Date: <span id="today"></span></div>
+            <div class="clock-box2">UTC: <span id="utc"></span></div>
+            <div class="clock-box2">ET: <span id="est"></span></div>
+            <div class="clock-box2">CT: <span id="cst"></span></div>
+            <div class="clock-box2">MT: <span id="mst"></span></div>
+            <div class="clock-box2">AT: <span id="ast"></span></div>
+            <div class="clock-box2">PT: <span id="pst"></span></div>
+            <div class="clock-box2">HT: <span id="hst"></span></div>
+        </div>
+		<div class="header-container">
+		<!-- Horizontal Ticker Tape -->
+		<script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-ticker-tape.js"></script>
+		<tv-ticker-tape symbols="NASDAQ:AAPL,NASDAQ:TSLA,NASDAQ:MSFT,NASDAQ:NVDA,NASDAQ:AMZN,NASDAQ:GOOGL,NASDAQ:META,NYSE:JPM,NYSE:XOM,NYSE:BRK.B,CBOE:SPX,TOCOM:DJIA,NASDAQ:IXIC" hide-chart theme="dark"></tv-ticker-tape>
+		</div>
+		<div class="header-container">
+			<a class="weatherwidget-io" href="https://forecast7.com/en/33d15n96d82/frisco/" data-label_1="FRISCO" data-label_2="WEATHER" data-theme="original" >FRISCO WEATHER</a>
+			<script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+</script>
+		</div>
+<div class="affirmation-banner">
+    <p id="affirmation-text">Loading your positive thought for the day...</p>
+</div>
+        <main>
+            <div class="container">
+                    <iframe class="scaled-iframe" width="100%" height="800" src="https://rss.app/embed/v1/carousel/0Uoq58osfhfNI3qQ" style="border:none" framebordeer="0" scrolling="no"></iframe>
+            </div>
+        </main>
+        <script>
+            function updateClocks() {
+                const now = new Date();
+
+                document.getElementById("utc").textContent = now.toUTCString().split(' ')[4];
+                document.getElementById("est").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/New_York" });
+                document.getElementById("cst").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Chicago" });
+                document.getElementById("mst").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Denver" });
+                document.getElementById("ast").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Phoenix" });
+                document.getElementById("pst").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Los_Angeles" });
+                document.getElementById("hst").textContent = now.toLocaleTimeString("en-US", { timeZone: "Pacific/Honolulu" });
+            }
+
+            // Update every second
+            setInterval(updateClocks, 1000);
+            updateClocks(); // Initial call
+        </script>
+        <script>
+            document.getElementById('today').textContent =
+                new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        </script>
+		<script>
+    // List of affirmations to choose from
+    const affirmations = [
+        "Don't let the noise of others' opinions drown out you own inner voice - Steve Jobs",
+        "Success is the result of small efforts, repeated day-in and day-out - Robert Collier",
+        "I am no longer accepting the things I cannot change, I am changing the things I cannot accept. - Angela Davis",
+        "Everyone you ever meet knows something you don't. - Bill Nye",
+        "Failure is not the opposite of success; it is a stepping stone towards it. - Sundar Pichai",
+        "We are products of our past, but we don't have to be prisoners of it. - Rick Warren",
+        "Many of the truths we cling to in life are only true from a certain point of view. - Obi-Wan Kenobi"
+    ];
+
+    // Function to select and display a random affirmation
+    function displayRandomAffirmation() {
+        const randomIndex = Math.floor(Math.random() * affirmations.length);
+        const selectedAffirmation = affirmations[randomIndex];
+        document.getElementById("affirmation-text").textContent = `"${selectedAffirmation}"`;
+    }
+
+    // Run the function when the page loads
+    window.onload = displayRandomAffirmation;
+</script>
+</body>
+</html>
