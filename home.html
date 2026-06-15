@@ -70,8 +70,8 @@
 		    /* Banner Styling */
     .affirmation-banner {
         width: 100%;
-        background: linear-gradient(135deg, #ffffff, #18453b);
-        color: #000000;
+        background: linear-gradient(135deg, var(--color-start), var(--color-end));
+        color: var(--color-text);
         text-align: center;
         padding: 20px 10px;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -172,6 +172,48 @@
 
     // Run the function when the page loads
     window.onload = displayRandomAffirmation;
+
+const day = new Date().getDay(); 
+const root = document.documentElement;
+
+switch (day) {
+  case 0: // Sunday
+    root.style.setProperty('--color-start', '#ffffff');
+    root.style.setProperty('--color-end', '#18453b');
+	root.style.setProperty('--color-text','#000000');
+    break;
+  case 1: // Monday
+    root.style.setProperty('--color-start', '#ffc82e');
+    root.style.setProperty('--color-end', '#6a0032');
+	root.style.setProperty('--color-text','#000000');
+    break;
+  case 2: // Monday
+    root.style.setProperty('--color-start', '#ffb612');
+    root.style.setProperty('--color-end', '#203731');
+	root.style.setProperty('--color-text','#000000');
+    break;
+  case 3: // Monday
+    root.style.setProperty('--color-start', '#b0b7bc');
+    root.style.setProperty('--color-end', '#0076b6');
+	root.style.setProperty('--color-text','#000000');
+    break;
+  case 4: // Monday
+    root.style.setProperty('--color-start', '#a5acaf');
+    root.style.setProperty('--color-end', '#000000');
+	root.style.setProperty('--color-text','#cfc493');
+    break;
+  case 5: // Monday
+    root.style.setProperty('--color-start', '#efb21e');
+    root.style.setProperty('--color-end', '#003831');
+	root.style.setProperty('--color-text','#000000');
+    break;
+  case 6: // Monday
+    root.style.setProperty('--color-start', '#cfc493');
+    root.style.setProperty('--color-end', '#000000');
+	root.style.setProperty('--color-text','#ffffff');
+    break;
+  // ... Handle remaining cases (2 through 6)
+}	
 </script>
 </body>
 </html>
