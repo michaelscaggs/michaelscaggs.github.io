@@ -42,7 +42,7 @@
             text-align: center;
             width: 150px;
         }
-        /* Top Navbar */
+      /* Top Navbar */
         .navbar {
             background-color: #333;
             top: 0;
@@ -54,7 +54,71 @@
             padding: 0 20px;
             box-sizing: border-box;
         }
-        .container {
+
+            .navbar a {
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+                .navbar a:hover {
+                    background-color: #ddd;
+                    color: black;
+                }
+
+        /* The dropdown container */
+        .dropdown {
+            float: left;
+            overflow: visible;
+        }
+
+            /* Dropdown button */
+            .dropdown .dropbtn {
+                font-size: 16px;
+                border: none;
+                outline: none;
+                color: white;
+                padding: 14px 16px;
+                background-color: inherit;
+                font-family: inherit; /* Important for vertical align on mobile phones */
+            }
+
+            /* Add a red background color to navbar links on hover */
+            .navbar a:hover, .dropdown:hover .dropbtn {
+                background-color: red;
+            }
+
+        /* Dropdown content (hidden by default) */
+        .dropdown-content {
+            display: none;
+            position: relative;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+            /* Links inside the dropdown */
+            .dropdown-content a {
+                float: none;
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                text-align: left;
+            }
+
+                /* Add a grey background color to dropdown links on hover */
+                .dropdown-content a:hover {
+                    background-color: #ddd;
+                }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+       .container {
             width: 100%;
             padding: 50px;
             overflow: auto; /* Clears floats so container doesn't collapse */
@@ -90,9 +154,6 @@
     a, a:visited, a:active {
 		color: #ffffff;
 	}
-	
-        .feed-container { width: 100%; max-width: 600px; margin: 20px auto; }
-        iframe { width: 100%; height: 500px; border: 1px solid #ccc; border-radius: 8px; }
     </style>
     <title>Daily Update</title>
     <base target="_blank">
@@ -111,10 +172,39 @@
             <div class="clock-box2">PT: <span id="pst"></span></div>
             <div class="clock-box2">HT: <span id="hst"></span></div>
         </div>
-		<div class="header-container">
+           <!-- Top Navbar -->
+            <nav class="navbar">
+                <a href="http://www.cnn.com">News</a>
+                <a href="http://www.espn.com">Sports</a>
+                <a href="http://www.weather.com">Weather</a>
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        Research Links
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="http://www.youtube.com">You Tube</a>
+                        <a href="http://www.google.com">Google</a>
+                        <a href="http://www.stackoverflow.com">Stack Overflow</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        Social Media
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="http://www.facebook.com">Facebook</a>
+                        <a href="http://www.twitter.com">Twitter</a>
+                        <a href="http://www.linkedin.com">Linked In</a>
+                    </div>
+                </div>
+            </nav>
+</div>
+ 		<div class="header-container">
 		<!-- Horizontal Ticker Tape -->
 		<script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-ticker-tape.js"></script>
-		<tv-ticker-tape symbols="FOREXCOM:SPXUSD,FOREXCOM:NSXUSD,FOREXCOM:DJI,BITSTAMP:BTCUSD,BITSTAMP:ETHUSD,NASDAQ:AAPL,NASDAQ:TSLA,NASDAQ:MSFT,NASDAQ:NVDA,NASDAQ:AMZN,NASDAQ:GOOGL,NASDAQ:CHTR" hide-chart theme="dark"></tv-ticker-tape>
+		<tv-ticker-tape symbols="FOREXCOM:SPXUSD,FOREXCOM:NSXUSD,FOREXCOM:DJI,BITSTAMP:BTCUSD,BITSTAMP:ETHUSD,NASDAQ:AAPL,NASDAQ:TSLA,NASDAQ:MSFT,NASDAQ:NVDA,NASDAQ:AMZN,NASDAQ:GOOGL,NASDAQ:CHTR,NYSE:DIS" hide-chart theme="dark"></tv-ticker-tape>
 		</div>
 		<div class="header-container">
 			<a class="weatherwidget-io" href="https://forecast7.com/en/33d15n96d82/frisco/" data-label_1="FRISCO" data-label_2="WEATHER" data-theme="original" >FRISCO, TX WEATHER</a>
@@ -126,8 +216,8 @@
     <p id="affirmation-text">Loading your positive thought for the day...</p>
 </div>
         <main>
-            <div class="feed-container">
-                    <iframe class="scaled-iframe" width="100%" height="600" style="border:none" framebordeer="0" scrolling="no"></iframe>
+            <div class="container">
+                    <iframe class="scaled-iframe" width="100%" height="600" src="http://michaelscaggs.github.io/content.html" style="border:none" framebordeer="0" scrolling="no"></iframe>
             </div>
         </main>
         <script>
