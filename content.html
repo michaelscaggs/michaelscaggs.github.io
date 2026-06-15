@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Pro Sports Scoreboard</title>
+    <title>CORS-Fixed Pro Sports Scoreboard</title>
     <style>
         :root {
             --bg-color: #121212;
             --panel-bg: #1e1e1e;
             --text-color: #ffffff;
             --accent-color: #ff9f43;
-            --border-glow: #2c3e50;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
@@ -31,10 +29,10 @@
             border-radius: 12px;
             padding: 20px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-            width: 90%;
-            max-width: 500px;
-            box-sizing: border-box;
+            width: 95%;
+            max-width: 480px;
             border: 1px solid #333;
+            box-sizing: border-box;
         }
 
         .controls-row {
@@ -54,22 +52,21 @@
             border-radius: 6px;
             font-size: 0.9rem;
             cursor: pointer;
-            outline: none;
         }
 
         .game-status {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
             color: var(--accent-color);
-            letter-spacing: 1px;
+            text-align: right;
+            max-width: 50%;
         }
 
         .match-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 15px;
         }
 
         .team-block {
@@ -81,38 +78,39 @@
         }
 
         .team-logo {
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             object-fit: contain;
             margin-bottom: 8px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 50%;
         }
 
         .team-name {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
-            max-width: 140px;
+            max-width: 110px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .score-display {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             font-weight: 800;
-            font-variant-numeric: tabular-nums;
-            color: #fff;
+            min-width: 60px;
+            text-align: center;
         }
 
         .divider {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: #555;
-            font-weight: 300;
         }
 
         .info-footer {
             text-align: center;
             margin-top: 15px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #888;
         }
     </style>
@@ -121,35 +119,34 @@
 
 <div class="scoreboard-card">
     <div class="controls-row">
-        <!-- League Selector Dropdown -->
         <select id="league-select" onchange="fetchScores()">
             <option value="mlb">MLB Baseball</option>
             <option value="nba">NBA Basketball</option>
             <option value="nfl">NFL Football</option>
             <option value="nhl">NHL Hockey</option>
         </select>
-        <div class="game-status" id="game-status">LOADING...</div>
+        <div class="game-status" id="game-status">FETCHING...</div>
     </div>
     
     <div class="match-container">
-        <!-- Away Team -->
+        <!-- Away -->
         <div class="team-block">
-            <img id="away-logo" class="team-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org>" alt="Away Logo">
+            <img id="away-logo" class="team-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org>" alt="Away">
             <div id="away-name" class="team-name">Away Team</div>
         </div>
         
-        <div id="away-score" class="score-display">0</div>
-        <div class="divider">VS</div>
-        <div id="home-score" class="score-display">0</div>
+        <div id="away-score" class="score-display">-</div>
+        <div class="divider">@</div>
+        <div id="home-score" class="score-display">-</div>
 
-        <!-- Home Team -->
+        <!-- Home -->
         <div class="team-block">
-            <img id="home-logo" class="team-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org>" alt="Home Logo">
+            <img id="home-logo" class="team-logo" src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org>" alt="Home">
             <div id="home-name" class="team-name">Home Team</div>
         </div>
     </div>
 
-    <div class="info-footer" id="game-detail">Fetching live match info...</div>
+    <div class="info-footer" id="game-detail">Loading data tunnel...</div>
 </div>
 
 <script>
@@ -174,24 +171,35 @@
         const league = document.getElementById('league-select').value;
         const targetAbbreviation = targetTeams[league];
         
-        // Dynamic construction using ESPN public endpoint framework
-        let url = `https://espn.com`;
-        if (league === 'nba') url = `https://espn.com`;
-        if (league === 'nfl') url = `https://espn.com`;
-        if (league === 'nhl') url = `https://espn.com`;
+        document.getElementById('game-status').innerText = "REFRESHING...";
+
+        let rawUrl = `https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard`;
+        if (league === 'nba') rawUrl = `https://espn.com`;
+        if (league === 'nfl') rawUrl = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`;
+        if (league === 'nhl') rawUrl = `https://espn.com`;
+
+        // Bypassing CORS constraints using allorigins public proxy
+        let proxyUrl = `https://allorigins.win{encodeURIComponent(rawUrl)}`;
 
         try {
-            const response = await fetch(url);
-            const data = await response.json();
+            const response = await fetch(proxyUrl);
+            if (!response.ok) throw new Error("Proxy connection down");
             
-            // Loop array to isolate specific configured team
+            const wrapper = await response.json();
+            const data = JSON.parse(wrapper.contents); // Extract string payload parsed into JSON
+
+            if (!data.events || data.events.length === 0) {
+                showNoGame(targetAbbreviation);
+                return;
+            }
+            
+            // Search the event array for matches containing the configured team abbreviation
             const targetGame = data.events.find(event => {
-                return event.competitions[0].competitors.some(team => team.team.abbreviation === targetAbbreviation);
+                return event.competitions[0].competitors.some(c => c.team.abbreviation === targetAbbreviation);
             });
 
             if (!targetGame) {
-                document.getElementById('game-status').innerText = "NO GAME";
-                document.getElementById('game-detail').innerText = `No game scheduled today for ${targetAbbreviation}.`;
+                showNoGame(targetAbbreviation);
                 return;
             }
 
@@ -199,31 +207,35 @@
             const homeTeamData = comp.competitors.find(t => t.side === 'home');
             const awayTeamData = comp.competitors.find(t => t.side === 'away');
 
-            // Map variables directly to UI Elements
-            document.getElementById('home-name').innerText = homeTeamData.team.shortDisplayName.toUpperCase();
-            document.getElementById('home-logo').src = homeTeamData.team.logo;
+            // Render UI
+            document.getElementById('home-name').innerText = homeTeamData.team.abbreviation;
+            document.getElementById('home-logo').src = homeTeamData.team.logo || "";
             document.getElementById('home-score').innerText = homeTeamData.score;
 
-            document.getElementById('away-name').innerText = awayTeamData.team.shortDisplayName.toUpperCase();
-            document.getElementById('away-logo').src = awayTeamData.team.logo;
+            document.getElementById('away-name').innerText = awayTeamData.team.abbreviation;
+            document.getElementById('away-logo').src = awayTeamData.team.logo || "";
             document.getElementById('away-score').innerText = awayTeamData.score;
 
-            // Set Clock or State (Live, Final, Scheduled time)
             document.getElementById('game-status').innerText = targetGame.status.type.detail;
-            document.getElementById('game-detail').innerText = comp.venue ? comp.venue.fullName : "";
+            document.getElementById('game-detail').innerText = comp.venue ? comp.venue.fullName : "Pro League Venue";
 
         } catch (error) {
-            console.error("Scoreboard API Network Error:", error);
-            document.getElementById('game-status').innerText = "ERROR";
-            document.getElementById('game-detail').innerText = "Unable to process live data feed.";
+            console.error("Scoreboard Failure:", error);
+            document.getElementById('game-status').innerText = "CORS ERROR";
+            document.getElementById('game-detail').innerText = "Data stream failed via proxy tunnel.";
         }
     }
 
-    // Initialize display on initial script execution
-    fetchScores();
+    function showNoGame(teamAbbr) {
+        document.getElementById('game-status').innerText = "OFF AIR";
+        document.getElementById('home-score').innerText = "-";
+        document.getElementById('away-score').innerText = "-";
+        document.getElementById('game-detail').innerText = `No live game found today for team [${teamAbbr}].`;
+    }
 
-    // Auto-refresh interval (queries ESPN every 30 seconds for real-time tracking)
-    setInterval(fetchScores, 30000);
+    // Run immediately and handle regular 60-second updates
+    fetchScores();
+    setInterval(fetchScores, 60000);
 </script>
 
 </body>
