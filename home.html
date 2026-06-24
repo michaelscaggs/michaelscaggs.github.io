@@ -207,10 +207,17 @@
 		<tv-ticker-tape symbols="FOREXCOM:SPXUSD,FOREXCOM:NSXUSD,FOREXCOM:DJI,BITSTAMP:BTCUSD,BITSTAMP:ETHUSD,NASDAQ:AAPL,NASDAQ:TSLA,NASDAQ:MSFT,NASDAQ:NVDA,NASDAQ:AMZN,NASDAQ:GOOGL,NASDAQ:CHTR,NYSE:DIS" hide-chart theme="dark"></tv-ticker-tape>
 		</div>
 		<div class="header-container">
-			<a class="weatherwidget-io" href="https://forecast7.com/en/33d15n96d82/frisco/" data-label_1="FRISCO" data-label_2="WEATHER" data-theme="original" >FRISCO, TX WEATHER</a>
-			<script>
-!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-</script>
+		<a class="weatherwidget-io" href="https://forecast7.com/en/33d15n96d82/frisco/?unit=us" data-label_1="FRISCO" data-label_2="WEATHER" data-icons="Climacons Animated" data-theme="weather_one" >FRISCO WEATHER</a>
+		<script>
+			!function(d,s,id){
+			var js,fjs=d.getElementsByTagName(s)[0];
+			if(!d.getElementById(id)){js=d.createElement(s);
+			js.id=id;
+			js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);
+			}
+			}
+			(document,'script','weatherwidget-io-js');
+		</script>
 		</div>
 <div class="affirmation-banner">
     <p id="affirmation-text">Loading your positive thought for the day...</p>
@@ -259,7 +266,8 @@
 		"Trying is the first step towards failure. - Homer Simpson",
 		"Here's all you have to know about men and women: Women are crazy, men are stupid. And the main reason women are crazy is that men are stupid. - George Carlin",
 		"He who laughs last didn't get the joke. - Charles de Gaulle",
-		"The surest sign that intelligent life exists elsewhere in the universe is that it has never tried to contact us. - Bill Watterson"
+		"The surest sign that intelligent life exists elsewhere in the universe is that it has never tried to contact us. - Bill Watterson",
+		"I don't believe it. - Luke Skywalker\rThat is why you fail. - Yoda"
     ];
 
     // Function to select and display a random affirmation
