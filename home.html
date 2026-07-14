@@ -1,325 +1,759 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop Dashboard with Navigation</title>
     <style>
-        /* Use border-box to include padding and border in the element's total width */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #000;
-        }
+/* ==========================================================================
+   1. Core Layout & Reset
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        .sticky-header {
-            position: -webkit-sticky; /* For Safari */
-            position: sticky;
-            top: 0;
-            background-color: white; /* Prevents text from overlapping */
-            z-index: 1000; /* Ensures it stays on top */
-            width: 100%;
-        }
+/* Theme-agnostic color variables mapped across the interface */
+:root {
+    --bg-main: #0f172a;
+    --bg-surface: #1e293b;
+    --border-color: #334155;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-accent: #38bdf8;
+    --hover-color: #334155;
+}
 
-        .world-clock-container {
-            background-color: #000;
-            justify-content: left;
-            display: flex;
-            gap: 0px;
-            height: 30px;
-            font-family: console;
-            color: #4AF626;
-        }
+/* Light Mode overrides */
+[data-theme="light"] {
+    --bg-main: #f1f5f9;
+    --bg-surface: #ffffff;
+    --border-color: #cbd5e1;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-accent: #0284c7;
+    --hover-color: #e2e8f0;
+}
 
-        .clock-box {
-            border: none;
-            padding: 10px;
-            text-align: center;
-            width: 500px;
-        }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
 
-        .clock-box2 {
-            border: none;
-            padding: 10px;
-            text-align: center;
-            width: 150px;
-        }
-      /* Top Navbar */
-        .navbar {
-            background-color: #333;
-            top: 0;
-            width: 100%;
-            height: 30px;
-            display: flex;
-            color: white;
-            z-index: 1000;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
+/* ==========================================================================
+   2. Centered World Clock Banner, Actions & Logo Space
+   ========================================================================== */
+.clock-banner {
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
+    min-height: 45px; /* Bumped slightly to house the menu button layout cleanly */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
 
-            .navbar a {
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
+/* Forces layout sizing to match the right actions block perfectly. 
+   This preserves the absolute center rendering track for world clocks. */
+.banner-left-controls {
+    display: flex;
+    align-items: center;
+    width: 122px; 
+    justify-content: flex-start;
+}
 
-                .navbar a:hover {
-                    background-color: #ddd;
-                    color: black;
-                }
+.clock-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex: 1;
+}
 
-        /* The dropdown container */
-        .dropdown {
-            float: left;
-            overflow: visible;
-        }
+.clock-item {
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
 
-            /* Dropdown button */
-            .dropdown .dropbtn {
-                font-size: 16px;
-                border: none;
-                outline: none;
-                color: white;
-                padding: 14px 16px;
-                background-color: inherit;
-                font-family: inherit; /* Important for vertical align on mobile phones */
-            }
+.clock-label {
+    color: var(--text-secondary);
+    margin-right: 5px;
+    font-weight: 600;
+}
 
-            /* Add a red background color to navbar links on hover */
-            .navbar a:hover, .dropdown:hover .dropbtn {
-                background-color: red;
-            }
+.clock-time {
+    color: var(--text-accent);
+    font-family: monospace;
+    font-weight: bold;
+}
 
-        /* Dropdown content (hidden by default) */
-        .dropdown-content {
-            display: none;
-            position: relative;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1000;
-        }
+.banner-right-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 122px;
+    justify-content: flex-end;
+}
 
-            /* Links inside the dropdown */
-            .dropdown-content a {
-                float: none;
-                color: black;
-                padding: 12px 16px;
-                text-decoration: none;
-                display: block;
-                text-align: left;
-            }
+/* Hamburger Menu Button Styling */
+.menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    height: 35px;
+    width: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
 
-                /* Add a grey background color to dropdown links on hover */
-                .dropdown-content a:hover {
-                    background-color: #ddd;
-                }
+.menu-toggle:hover {
+    background-color: var(--hover-color);
+}
 
-        /* Show the dropdown menu on hover */
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-       .container {
-            width: 100%;
-            padding: 50px;
-            overflow: auto; /* Clears floats so container doesn't collapse */
-            border: 5px;
-            border-color: lightgreen;
-            background-color: black;
-        }
-  .scaled-iframe {
-    /* The Zoom Effect */
-    transform: scale(0.90); /* Zoom to 75% */
-    transform-origin: 0 0;  /* Ensures scaling starts from top-left */
-  }
-		    /* Banner Styling */
-    .affirmation-banner {
-        width: 100%;
-        background: linear-gradient(135deg, var(--color-start), var(--color-end));
-        color: var(--color-text);
-        text-align: center;
-        padding: 20px 10px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+.hamburger-bar {
+    background-color: var(--text-primary);
+    height: 2px;
+    width: 22px;
+    transition: transform 0.3s, opacity 0.3s, background-color 0.2s;
+}
+
+/* ==========================================================================
+   3. Main Container & Sidebar (Multi-Level Menu)
+   ========================================================================== */
+.main-container {
+    flex: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar {
+    background-color: var(--bg-surface);
+    border-right: 0px solid var(--border-color); /* Hidden in default state */
+    width: 0px; /* Collapsed state completely flushes to left side edge */
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    position: relative;
+    overflow: visible;
+}
+
+.sidebar.expanded {
+    width: 260px;
+    border-right: 1px solid var(--border-color);
+}
+
+/* Animate standard horizontal hamburger stripes into a distinct close cross mark */
+body:has(.sidebar.expanded) .hamburger-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+body:has(.sidebar.expanded) .hamburger-bar:nth-child(2) { opacity: 0; }
+body:has(.sidebar.expanded) .hamburger-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-menu, .submenu {
+    list-style: none;
+    width: 100%;
+}
+
+.nav-menu {
+    margin-top: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s, visibility 0.15s;
+}
+
+.sidebar.expanded .nav-menu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu-item {
+    position: relative;
+    width: 100%;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    transition: background-color 0.2s, color 0.2s;
+    white-space: nowrap;
+}
+
+.menu-link:hover {
+    background-color: var(--hover-color);
+}
+
+.has-submenu > .menu-link::after {
+    content: '▶';
+    margin-left: auto;
+    font-size: 0.6rem;
+    color: var(--text-secondary);
+}
+
+.submenu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+    display: none;
+    min-width: 200px;
+}
+
+.menu-item:hover > .submenu {
+    display: block;
+}
+
+
+/* ==========================================================================
+   4. Content Frame Area
+   ========================================================================== */
+.content-area {
+    flex: 1;
+    background-color: var(--bg-main);
+    position: relative;
+    transition: background-color 0.2s ease;
+}
+
+#contentFrame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #ffffff; /* Frame backdrop canvas */
+}
+
+/* ==========================================================================
+   5. Bottom Marquee with Directional Node Animations
+   ========================================================================== */
+.marquee-footer {
+    background-color: var(--bg-surface);
+    border-top: 1px solid var(--border-color);
+    height: 35px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    z-index: 15;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Static label tag */
+.nameplate {
+    /* Retain previous style rule code structures here... */
+    transition: background-color 0.4s ease; /* Blends colors cleanly on state changes */
+}
+
+/* Marquee viewing lane */
+.marquee-wrapper {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.marquee-content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Hidden placement state for text strings */
+.marquee-node {
+    position: absolute;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    opacity: 0;
+    transform: translateY(100%);
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+/* Animation trigger assignments managed by JavaScript loop */
+.marquee-node.enter {
+    animation: slideUpIn 0.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+.marquee-node.exit {
+    animation: slideOutRight 0.5s cubic-bezier(0.8, 0.1, 1, 0.2) forwards;
+}
+
+/* Entry Animation: Scroll up from bottom view limits */
+@keyframes slideUpIn {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
     }
-    .affirmation-banner p {
-        margin: 0;
-        font-size: 1.0rem;
-        font-weight: bold;
-        line-height: 1.0;
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
+}
 
-    a, a:visited, a:active {
-		color: #ffffff;
-	}
+/* Exit Animation: Shift outward towards the right edge */
+@keyframes slideOutRight {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+}
     </style>
-    <title>Daily Update</title>
-    <base target="_blank">
 </head>
 <body>
-    <div class="sticky-header">
-        <!-- World Clock -->
-        <div class="world-clock-container">
-            <!--Temporary Dashboard link removal <div class="clock-box2"><a href="http://michaelscaggs.github.io/dashboard.html">Dashboard</a></div> -->
-            <div class="clock-box">Today's Date: <span id="today"></span></div>
-            <div class="clock-box2">UTC: <span id="utc"></span></div>
-            <div class="clock-box2">ET: <span id="est"></span></div>
-            <div class="clock-box2">CT: <span id="cst"></span></div>
-            <div class="clock-box2">MT: <span id="mst"></span></div>
-            <div class="clock-box2">AT: <span id="ast"></span></div>
-            <div class="clock-box2">PT: <span id="pst"></span></div>
-            <div class="clock-box2">HT: <span id="hst"></span></div>
+    <!-- Centered World Clock Banner -->
+    <header class="clock-banner">
+              <!-- Hamburger Menu Button shifted into the Top Banner Frame -->
+        <div class="banner-left-controls">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
         </div>
-           <!-- Top Navbar -->
-            <nav class="navbar">
-                <a href="http://www.cnn.com">News</a>
-                <a href="http://www.espn.com">Sports</a>
-                <a href="http://www.weather.com">Weather</a>
-                <div class="dropdown">
-                    <button class="dropbtn">
-                        Research Links
-                        <i class="fa fa-caret-down"></i>
-                    </button>
-                    <div class="dropdown-content">
-                        <a href="http://www.youtube.com">You Tube</a>
-                        <a href="http://www.google.com">Google</a>
-                        <a href="http://www.stackoverflow.com">Stack Overflow</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button class="dropbtn">
-                        Social Media
-                        <i class="fa fa-caret-down"></i>
-                    </button>
-                    <div class="dropdown-content">
-                        <a href="http://www.facebook.com">Facebook</a>
-                        <a href="http://www.twitter.com">Twitter</a>
-                        <a href="http://www.linkedin.com">Linked In</a>
-                    </div>
-                </div>
-            </nav>
-</div>
- 		<div class="header-container">
-		<!-- Horizontal Ticker Tape -->
-		<script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-ticker-tape.js"></script>
-		<tv-ticker-tape symbols="FOREXCOM:SPXUSD,FOREXCOM:NSXUSD,FOREXCOM:DJI,BITSTAMP:BTCUSD,BITSTAMP:ETHUSD,NASDAQ:AAPL,NASDAQ:TSLA,NASDAQ:MSFT,NASDAQ:NVDA,NASDAQ:AMZN,NASDAQ:GOOGL,NASDAQ:CHTR,NYSE:DIS" hide-chart theme="dark"></tv-ticker-tape>
-		</div>
-		<div class="header-container">
-		<a class="weatherwidget-io" href="https://forecast7.com/en/33d15n96d82/frisco/?unit=us" data-label_1="FRISCO" data-label_2="WEATHER" data-icons="Climacons Animated" data-theme="weather_one" >FRISCO WEATHER</a>
-		<script>
-			!function(d,s,id){
-			var js,fjs=d.getElementsByTagName(s)[0];
-			if(!d.getElementById(id)){js=d.createElement(s);
-			js.id=id;
-			js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);
-			}
-			}
-			(document,'script','weatherwidget-io-js');
-		</script>
-		</div>
-<div class="affirmation-banner">
-    <p id="affirmation-text">Loading your positive thought for the day...</p>
-</div>
-        <main>
-            <div class="container">
-                    <iframe class="scaled-iframe" width="100%" height="450" src="https://widgets.sociablekit.com/rss-feed/iframe/25689670" style="border:none" framebordeer="0" scrolling="no"></iframe>
+        <div class="clock-container">
+            <div class="clock-item">
+                <span class="clock-label">ET:</span>
+                <span id="clock-est" class="clock-time">00:00:00</span>
             </div>
+            <div class="clock-item">
+                <span class="clock-label">CT:</span>
+                <span id="clock-cst" class="clock-time">00:00:00</span>
+            </div>
+            <div class="clock-item">
+                <span class="clock-label">MT:</span>
+                <span id="clock-mst" class="clock-time">00:00:00</span>
+            </div>
+            <div class="clock-item">
+                <span class="clock-label">AT:</span>
+                <span id="clock-ast" class="clock-time">00:00:00</span>
+            </div>
+            <div class="clock-item">
+                <span class="clock-label">PT:</span>
+                <span id="clock-pst" class="clock-time">00:00:00</span>
+            </div>
+            <div class="clock-item">
+                <span class="clock-label">HT:</span>
+                <span id="clock-hst" class="clock-time">00:00:00</span>
+            </div>
+        </div>
+        <!-- Right-Justified Action Group Box -->
+        <div class="banner-right-actions">
+            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+            <div class="company-logo-space">
+                <!-- Replace text with an <img src="location" alt="Logo"> asset when deploying -->
+                <span class="logo-placeholder"><img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Charter_Spectrum_logo.svg" alt="Logo" height="20" width="80"></span>
+            </div>
+        </div>
+    </header>
+    <!-- Main Layout Wrapper -->
+    <div class="main-container">
+        
+        <!-- Multi-Level Hamburger Menu Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <ul class="nav-menu">
+                <!-- Level 1 Item -->
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">Floor Monitoring</a>
+                    <!-- Level 2 Submenu -->
+                    <ul class="submenu">
+                        <li><a href="http://10.90.60.186:8765/lighthouse/" class="menu-link iframe-trigger">Lighthouse Live!</a></li>
+                        <li><a href="https://10.175.172.85:3000/repeatdashboard?auth=3JEuJAdmgG2U_C6nnvM2hQ0JoxQjlmrN&y6=1" class="menu-link iframe-trigger">Repeat Outage Dashboard</a></li>
+                        <li><a href="https://10.175.172.106:3000/ttd?auth=dxgRWqIv29D0OPUSsMZHch10G3WCIw3_u4ysXf6Smjvcovp7UCE9KO6IAarm3PFQOHyLpv3zxk-1vzDQXRhcQUT6jEZxSRMtGvyH7OsFU-F-gmJlviq5je2DwReYMxApNAyH8Eip5-vBWyNYo5OXbFdRHrSEMbLh2f0Q7-G8SEXJF5sCpogdR8qEQqOGqPsgNuvucwo7eupIZ_5ZLEWt6UMXXWD3sAcJ9usdjlLkLrTBjCd6zg-cbjDyTFXqkQ5D" class="menu-link iframe-trigger">TTD Display</a></li>
+                        <li><a href="http://10.90.60.186:8765/deflection/" class="menu-link iframe-trigger">Deflection Dashboard</a></li>
+                        <li><a href="http://10.90.60.186:8765/storm/" class="menu-link iframe-trigger">Storm Ops</a></li>
+                        <li><a href="http://10.90.60.186:8765/iris/" class="menu-link iframe-trigger">IRIS/BP Dashboard</a></li>
+                        <li><a href="http://10.90.60.186:8765/insights/" class="menu-link iframe-trigger">Team Insights</a></li>
+                        <li><a href="https://spectrum.cms.ccntr.spctrm.net:8443/CMSWeb/#/login" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">Avaya CMS Supervisor</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">Telemetry</a>
+                    <!-- Level 2 Submenu -->
+                    <ul class="submenu">
+                      <li><a href="https://lighthouse.charter.com/#/eb59ff56831d085851e251b3fcccaf1e2a198c02/alarms" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">Lighthouse</a></li>
+                      <li><a href="https://xpertrak.charter.com/pathtrak/enterprise/index.html#/entsearch" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">XPERTrak Enterprise View</a></li>
+                      <li><a href="https://continuity-nce-primary.chartercom.com/ContinuitySPS/security/login" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">Continuity (East)</a></li>
+                      <li><a href="https://continuity-ncw-primary.chartercom.com/ContinuitySPS/security/login" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">Continuity (West)</a></li>
+                      <li><a href="https://scope.charter.com/#/login" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">Scope</a></li>
+                      <li><a href="https://stratasync.viavisolutions.com/login.html" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">StrataSync</a></li>
+                      <li><a href="http://rfleakageeast/NorthEast/TrilithicLogin.aspx" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">LAW - Northeast</a></li>
+                      <li><a href="https://rfleakagewest.corp.chartercom.com/CenPac/TrilithicLogin.aspx" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">LAW - Central/Pacific</a></li>
+                      <li><a href="https://rfleakagewest.corp.chartercom.com/SouthWest/TrilithicLogin.aspx" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">LAW - Southwest</a></li>
+                      <li><a href="https://genacis.net/genacis/ManageUser/UserLogin.aspx?st=1" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">GENACIS</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">Fiber Event Management</a>
+                    <!-- Level 2 Submenu -->
+                    <ul class="submenu">
+                        <li><a href="https://chalk.charter.com/spaces/WESTROC/pages/2746108808/Fiber+Event+Tracker" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">West ROC Fiber Event Tracker</a></li>
+                        <li><a href="https://vm0pwntoola0001.corp.chartercom.com/subcounts/login/?currurl=https%3a%2f%2fvm0pwntoola0001.corp.chartercom.com%2fsubcounts%2f" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">NOC Portal - Sub Counts</a></li>
+                        <li><a href="https://manager.everbridge.net/saml/login/censmanager" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">Everbridge</a></li>
+                        <li><a href="https://nocportal-prd.corp.chartercom.com/tools/netp/interactive-map/" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">NIM - Transport Interactive Map</a></li>
+                        <li><a href="https://nbb.thebigpipe.net/maps/#5/36.862/-97.493" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">Backbone Fiber Map</a></li>
+                        <li><a href="https://orbit.netops.charter.com/" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">ORBIT</a></li>
+                        <li><a href="https://chartercom.sharepoint.com/sites/FO_ROC/Fiber%20Post%20Mortem%20Repository/Forms/AllItems.aspx?viewid=22db4496%2D83e8%2D4547%2Da403%2D7c306108fffc" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">National FONDS Repository</a></li>                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">Floor Monitoring</a>
+                    <!-- Level 2 Submenu -->
+                    <ul class="submenu">
+                        <li><a href="http://10.90.60.186:8765/lighthouse/" class="menu-link iframe-trigger">Lighthouse Live!</a></li>
+                        <li><a href="https://10.175.172.85:3000/repeatdashboard?auth=3JEuJAdmgG2U_C6nnvM2hQ0JoxQjlmrN&y6=1" class="menu-link iframe-trigger">Repeat Outage Dashboard</a></li>
+                        <li><a href="https://10.175.172.106:3000/ttd?auth=dxgRWqIv29D0OPUSsMZHch10G3WCIw3_u4ysXf6Smjvcovp7UCE9KO6IAarm3PFQOHyLpv3zxk-1vzDQXRhcQUT6jEZxSRMtGvyH7OsFU-F-gmJlviq5je2DwReYMxApNAyH8Eip5-vBWyNYo5OXbFdRHrSEMbLh2f0Q7-G8SEXJF5sCpogdR8qEQqOGqPsgNuvucwo7eupIZ_5ZLEWt6UMXXWD3sAcJ9usdjlLkLrTBjCd6zg-cbjDyTFXqkQ5D" class="menu-link iframe-trigger">TTD Display</a></li>
+                        <li><a href="http://10.90.60.186:8765/deflection/" class="menu-link iframe-trigger">Deflection Dashboard</a></li>
+                        <li><a href="http://10.90.60.186:8765/storm/" class="menu-link iframe-trigger">Storm Ops</a></li>
+                        <li><a href="http://10.90.60.186:8765/iris/" class="menu-link iframe-trigger">IRIS/BP Dashboard</a></li>
+                        <li><a href="http://10.90.60.186:8765/insights/" class="menu-link iframe-trigger">Team Insights</a></li>
+                        <li><a href="https://spectrum.cms.ccntr.spctrm.net:8443/CMSWeb/#/login" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">Avaya CMS Supervisor</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">Telemetry</a>
+                    <!-- Level 2 Submenu -->
+                    <ul class="submenu">
+                      <li><a href="https://lighthouse.charter.com/#/eb59ff56831d085851e251b3fcccaf1e2a198c02/alarms" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">Lighthouse</a></li>
+                      <li><a href="https://xpertrak.charter.com/pathtrak/enterprise/index.html#/entsearch" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">XPERTrak Enterprise View</a></li>
+                      <li><a href="https://continuity-nce-primary.chartercom.com/ContinuitySPS/security/login" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">Continuity (East)</a></li>
+                      <li><a href="https://continuity-ncw-primary.chartercom.com/ContinuitySPS/security/login" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">Continuity (West)</a></li>
+                      <li><a href="https://scope.charter.com/#/login" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">Scope</a></li>
+                      <li><a href="https://stratasync.viavisolutions.com/login.html" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">StrataSync</a></li>
+                      <li><a href="http://rfleakageeast/NorthEast/TrilithicLogin.aspx" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">LAW - Northeast</a></li>
+                      <li><a href="https://rfleakagewest.corp.chartercom.com/CenPac/TrilithicLogin.aspx" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">LAW - Central/Pacific</a></li>
+                      <li><a href="https://rfleakagewest.corp.chartercom.com/SouthWest/TrilithicLogin.aspx" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">LAW - Southwest</a></li>
+                      <li><a href="https://genacis.net/genacis/ManageUser/UserLogin.aspx?st=1" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">GENACIS</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">Fiber Event Management</a>
+                    <!-- Level 2 Submenu -->
+                    <ul class="submenu">
+                        <li><a href="https://chalk.charter.com/spaces/WESTROC/pages/2746108808/Fiber+Event+Tracker" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">West ROC Fiber Event Tracker</a></li>
+                        <li><a href="https://vm0pwntoola0001.corp.chartercom.com/subcounts/login/?currurl=https%3a%2f%2fvm0pwntoola0001.corp.chartercom.com%2fsubcounts%2f" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">NOC Portal - Sub Counts</a></li>
+                        <li><a href="https://manager.everbridge.net/saml/login/censmanager" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">Everbridge</a></li>
+                        <li><a href="https://nocportal-prd.corp.chartercom.com/tools/netp/interactive-map/" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">NIM - Transport Interactive Map</a></li>
+                        <li><a href="https://nbb.thebigpipe.net/maps/#5/36.862/-97.493" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">Backbone Fiber Map</a></li>
+                        <li><a href="https://orbit.netops.charter.com/" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">ORBIT</a></li>
+                        <li><a href="https://chartercom.sharepoint.com/sites/FO_ROC/Fiber%20Post%20Mortem%20Repository/Forms/AllItems.aspx?viewid=22db4496%2D83e8%2D4547%2Da403%2D7c306108fffc" class="menu-link new-tab-trigger" target="_blank" rel="noopener noreferrer">National FONDS Repository</a></li>                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area with Iframe -->
+        <main class="content-area">
+            <iframe id="contentFrame" src="https://www.google.com" title="Content Area"></iframe>
         </main>
-        <script>
-            function updateClocks() {
-                const now = new Date();
 
-                document.getElementById("utc").textContent = now.toUTCString().split(' ')[4];
-                document.getElementById("est").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/New_York" });
-                document.getElementById("cst").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Chicago" });
-                document.getElementById("mst").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Denver" });
-                document.getElementById("ast").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Phoenix" });
-                document.getElementById("pst").textContent = now.toLocaleTimeString("en-US", { timeZone: "America/Los_Angeles" });
-                document.getElementById("hst").textContent = now.toLocaleTimeString("en-US", { timeZone: "Pacific/Honolulu" });
-            }
+    </div>
 
-            // Update every second
-            setInterval(updateClocks, 1000);
-            updateClocks(); // Initial call
-        </script>
-        <script>
-            document.getElementById('today').textContent =
-                new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-        </script>
-		<script>
-    // List of affirmations to choose from
-    const affirmations = [
-        "Don't let the noise of others' opinions drown out you own inner voice - Steve Jobs",
-        "Success is the result of small efforts, repeated day-in and day-out - Robert Collier",
-        "I am no longer accepting the things I cannot change, I am changing the things I cannot accept. - Angela Davis",
-        "Everyone you ever meet knows something you don't. - Bill Nye",
-        "Failure is not the opposite of success; it is a stepping stone towards it. - Sundar Pichai",
-        "We are products of our past, but we don't have to be prisoners of it. - Rick Warren",
-        "Many of the truths we cling to in life are only true from a certain point of view. - Obi-Wan Kenobi",
-		"How can I be lost, when I've got nowhere to go? - James Hetfield",
-		"Yesterday's home runs don't win today's games - Babe Ruth",
-		"He who has a why to live can bear almost any how. - Friedrich Nietzsche",
-		"Instant gratification takes too long. - Carrie Fisher",
-		"I choose a lazy person to do a hard job. Because a lazy person will find an easy way to do it. - Bill Gates",
-		"Trying is the first step towards failure. - Homer Simpson",
-		"Here's all you have to know about men and women: Women are crazy, men are stupid. And the main reason women are crazy is that men are stupid. - George Carlin",
-		"He who laughs last didn't get the joke. - Charles de Gaulle",
-		"The surest sign that intelligent life exists elsewhere in the universe is that it has never tried to contact us. - Bill Watterson",
-    ];
+    <!-- Bottom Marquee Footer -->
+    <!-- Bottom Marquee Footer with Dynamic Theme Nameplate -->
+    <footer class="marquee-footer">
+        <div class="nameplate" id="marqueeNameplate">SYSTEM STATUS</div>
+        <div class="marquee-wrapper">
+            <div class="marquee-content" id="marqueeContent">
+                <!-- JavaScript dynamically populates text nodes here -->
+            </div>
+        </div>
+    </footer>
 
-    // Function to select and display a random affirmation
-    function displayRandomAffirmation() {
-        const randomIndex = Math.floor(Math.random() * affirmations.length);
-        const selectedAffirmation = affirmations[randomIndex];
-        document.getElementById("affirmation-text").textContent = `"${selectedAffirmation}"`;
+    <script>
+      /**
+ * ==========================================================================
+ * 1. Initialize Event Listeners & State
+ * ==========================================================================
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    initClockSystem();
+    initNavigationMenu();
+    initNavigationLinks();
+    initIframeController();
+    initThemeEngine();
+    initMarqueeEngine();
+});
+
+// Add to your DOMContentLoaded event loop init list: initThemeEngine();
+
+function initThemeEngine() {
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = themeToggle ? themeToggle.querySelector(".theme-icon") : null;
+    
+    if (!themeToggle) return;
+
+    // Check system preference or cached setting from local storage
+    const savedTheme = localStorage.getItem("dashboard-theme") || "dark";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    updateToggleIcon(savedTheme);
+
+    themeToggle.addEventListener("click", () => {
+        const currentTheme = document.documentElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+        
+        // Save choice state globally
+        document.documentElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("dashboard-theme", newTheme);
+        updateToggleIcon(newTheme);
+    });
+
+    function updateToggleIcon(theme) {
+        if (!themeIcon) return;
+        // Swap emoji icons visually based on target active state
+        themeIcon.textContent = theme === "light" ? "☀️" : "🌙";
+    }
+}
+
+/**
+ * ==========================================================================
+ * 2. Live World Clock System
+ * ==========================================================================
+ */
+function initClockSystem() {
+    const clockElements = {
+        ast: document.getElementById("clock-ast"), // Arizona Standard Time
+        est: document.getElementById("clock-est"), // Eastern Standard Time
+        cst: document.getElementById("clock-cst"), // Central Standard Time
+        mst: document.getElementById("clock-mst"), // Mountain Standard Time
+        pst: document.getElementById("clock-pst"), // Pacific Standard Time
+        hst: document.getElementById("clock-hst")  // Hawaii Standard Time
+    };
+
+    function updateClocks() {
+        const now = new Date();
+
+        const options = {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false
+        };
+
+        // Render localized times using standardized geographic IANA strings
+        if (clockElements.ast) {
+            clockElements.ast.textContent = now.toLocaleTimeString("en-US", { ...options, timeZone: "America/Phoenix" });
+        }
+        if (clockElements.est) {
+            clockElements.est.textContent = now.toLocaleTimeString("en-US", { ...options, timeZone: "America/New_York" });
+        }
+        if (clockElements.cst) {
+            clockElements.cst.textContent = now.toLocaleTimeString("en-US", { ...options, timeZone: "America/Chicago" });
+        }
+        if (clockElements.mst) {
+            clockElements.mst.textContent = now.toLocaleTimeString("en-US", { ...options, timeZone: "America/Denver" });
+        }
+        if (clockElements.pst) {
+            clockElements.pst.textContent = now.toLocaleTimeString("en-US", { ...options, timeZone: "America/Los_Angeles" });
+        }
+        if (clockElements.hst) {
+            clockElements.hst.textContent = now.toLocaleTimeString("en-US", { ...options, timeZone: "Pacific/Honolulu" });
+        }
     }
 
-    // Run the function when the page loads
-    window.onload = displayRandomAffirmation;
+    // Run clock immediately and frame every second
+    updateClocks();
+    setInterval(updateClocks, 1000);
+}
 
-const day = new Date().getDay(); 
-const root = document.documentElement;
 
-switch (day) {
-  case 0: // Sunday
-    root.style.setProperty('--color-start', '#ffffff');
-    root.style.setProperty('--color-end', '#18453b');
-	root.style.setProperty('--color-text','#000000');
-    break;
-  case 1: // Monday
-    root.style.setProperty('--color-start', '#ffc82e');
-    root.style.setProperty('--color-end', '#6a0032');
-	root.style.setProperty('--color-text','#000000');
-    break;
-  case 2: // Monday
-    root.style.setProperty('--color-start', '#ffb612');
-    root.style.setProperty('--color-end', '#203731');
-	root.style.setProperty('--color-text','#000000');
-    break;
-  case 3: // Monday
-    root.style.setProperty('--color-start', '#b0b7bc');
-    root.style.setProperty('--color-end', '#0076b6');
-	root.style.setProperty('--color-text','#000000');
-    break;
-  case 4: // Monday
-    root.style.setProperty('--color-start', '#a5acaf');
-    root.style.setProperty('--color-end', '#000000');
-	root.style.setProperty('--color-text','#cfc493');
-    break;
-  case 5: // Monday
-    root.style.setProperty('--color-start', '#efb21e');
-    root.style.setProperty('--color-end', '#003831');
-	root.style.setProperty('--color-text','#000000');
-    break;
-  case 6: // Monday
-    root.style.setProperty('--color-start', '#cfc493');
-    root.style.setProperty('--color-end', '#000000');
-	root.style.setProperty('--color-text','#ffffff');
-    break;
-  // ... Handle remaining cases (2 through 6)
-}	
-</script>
+/**
+ * ==========================================================================
+ * 3. Multi-Level Menu Layout Expansion
+ * ==========================================================================
+ */
+function initNavigationMenu() {
+    const sidebar = document.getElementById("sidebar");
+    const menuToggle = document.getElementById("menuToggle");
+
+    if (!sidebar || !menuToggle) return;
+
+    // Toggle menu state layout flags
+    menuToggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle("expanded");
+    });
+
+    // Close sidebar drawer cleanly when an external layout section is clicked
+    document.addEventListener("click", (e) => {
+        // Prevent immediate close firing if the user clicks inside the sidebar or on the toggle button
+        if (sidebar.classList.contains("expanded") && 
+            !sidebar.contains(e.target) && 
+            !menuToggle.contains(e.target)) {
+            sidebar.classList.remove("expanded");
+        }
+    });
+}
+
+
+/**
+ * ==========================================================================
+ * 4. Content Area Iframe Controller
+ * ==========================================================================
+ */
+function initIframeController() {
+    const contentFrame = document.getElementById("contentFrame");
+    const structuralTriggers = document.querySelectorAll(".iframe-trigger");
+    const sidebar = document.getElementById("sidebar");
+
+    structuralTriggers.forEach(trigger => {
+        trigger.addEventListener("click", (e) => {
+            e.preventDefault();
+            
+            const targetUrl = trigger.getAttribute("href");
+            if (contentFrame && targetUrl) {
+                contentFrame.src = targetUrl;
+            }
+
+            // Clean up sidebar interface state after a navigation click
+            if (sidebar) {
+                sidebar.classList.remove("expanded");
+            }
+        });
+    });
+}
+
+function initNavigationLinks() {
+    const structuralTriggers = document.querySelectorAll(".new-tab-trigger");
+    const sidebar = document.getElementById("sidebar");
+
+    structuralTriggers.forEach(trigger => {
+        trigger.addEventListener("click", () => {
+            // Native browser mechanics will handle opening target="_blank" in a new tab.
+            
+            // Clean up the sidebar interface state by automatically collapsing the drawer
+            if (sidebar && sidebar.classList.contains("expanded")) {
+                sidebar.classList.remove("expanded");
+            }
+        });
+    });
+}
+
+/**
+ * ==========================================================================
+ * 5. Dynamic Data-Driven Marquee Engine with Nameplate Updates
+ * ==========================================================================
+ */
+function initMarqueeEngine() {
+    const marqueeContainer = document.getElementById("marqueeContent");
+    const nameplateContainer = document.getElementById("marqueeNameplate");
+    if (!marqueeContainer || !nameplateContainer) return;
+
+    // Structured data grid pairing labels, icons, alerts, and system colors
+    const newsFeed = [
+        {
+            type: "NORMAL",
+            label: "SYSTEM ONLINE",
+            color: "#10b981", // Emerald green theme color
+            text: "ℹ️ All remote servers operational and reporting healthy."
+        },
+        {
+            type: "SUCCESS",
+            label: "BACKUP COMPLETE",
+            color: "#06b6d4", // Cyan theme color
+            text: "💾 Critical structural database tables synced successfully to cloud nodes."
+        },
+        {
+            type: "WARNING",
+            label: "MAINTENANCE",
+            color: "#f59e0b", // Amber warning color
+            text: "⚠️ Core system maintenance window scheduled tonight at 04:00 UTC."
+        },
+        {
+            type: "CRITICAL",
+            label: "ALERT ACTIVE",
+            color: "#ef4444", // Deep red color accent
+            text: "🚨 High data traffic spike observed on Western Europe proxy cluster."
+        }
+    ];
+
+    let currentIndex = 0;
+    const holdDuration = 4500;    // Time text remains static in center view (ms)
+    const animationBuffer = 500;  // Match time length for CSS layout keyframes (ms)
+
+    // Helper generation factory to build custom text span elements
+    function createMarqueeNode(textString) {
+        const span = document.createElement("span");
+        span.className = "marquee-node";
+        span.textContent = textString;
+        return span;
+    }
+
+    // Target configuration settings object for the initial baseline item
+    let currentItem = newsFeed[currentIndex];
+    let currentNode = createMarqueeNode(currentItem.text);
+    
+    // Inject first state values into the UI elements instantly on panel load
+    nameplateContainer.textContent = currentItem.label;
+    nameplateContainer.style.backgroundColor = currentItem.color;
+    marqueeContainer.appendChild(currentNode);
+    
+    // Force a DOM engine layout reflow layout flush to trigger the entry animations
+    void currentNode.offsetWidth;
+    currentNode.classList.add("enter");
+
+    // Continuous timed cycle handler logic 
+    function cycleNewsFeed() {
+        // Step 1: Fire off horizontal exit transition script rules on the current active item
+        currentNode.classList.remove("enter");
+        currentNode.classList.add("exit");
+
+        const nodeToTrash = currentNode;
+
+        // Advance array index cursor tracking position
+        currentIndex = (currentIndex + 1) % newsFeed.length;
+        currentItem = newsFeed[currentIndex];
+
+        // Step 2: Hold script processing until the exit animation finishes cleanly
+        setTimeout(() => {
+            // Drop old node out of memory layout to keep performance running optimally
+            nodeToTrash.remove();
+
+            // Swap out nameplate label text and update background design parameters matching data config
+            nameplateContainer.textContent = currentItem.label;
+            nameplateContainer.style.backgroundColor = currentItem.color;
+
+            // Instantly spawn upcoming ticker line text entry instance 
+            currentNode = createMarqueeNode(currentItem.text);
+            marqueeContainer.appendChild(currentNode);
+
+            // Frame vertical scroll animation entry transition layer parameters
+            void currentNode.offsetWidth;
+            currentNode.classList.add("enter");
+
+        }, animationBuffer);
+    }
+
+    // Schedule recursive loop interval engine paths continuously
+    setInterval(cycleNewsFeed, holdDuration + animationBuffer);
+}
+
+    </script>
 </body>
 </html>
