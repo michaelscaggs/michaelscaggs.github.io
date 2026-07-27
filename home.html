@@ -231,6 +231,8 @@ body:has(.sidebar.expanded) .hamburger-bar:nth-child(3) { transform: translateY(
    4. Content Frame Area
    ========================================================================== */
 .content-area {
+    transform: scale(0.90); /* Zoom to 75% */
+    transform-origin: 0 0; /* Ensures scaling starts from top-left */
     flex: 1;
     background-color: var(--bg-main);
     position: relative;
