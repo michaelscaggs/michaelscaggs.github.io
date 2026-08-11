@@ -1,0 +1,321 @@
+/* ==========================================================================
+   1. Core Layout & Reset
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Theme-agnostic color variables mapped across the interface */
+:root {
+    --bg-main: #0f172a;
+    --bg-surface: #1e293b;
+    --border-color: #334155;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-accent: #38bdf8;
+    --hover-color: #334155;
+}
+
+/* Light Mode overrides */
+[data-theme="light"] {
+    --bg-main: #f1f5f9;
+    --bg-surface: #ffffff;
+    --border-color: #cbd5e1;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-accent: #0284c7;
+    --hover-color: #e2e8f0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ==========================================================================
+   2. Centered World Clock Banner, Actions & Logo Space
+   ========================================================================== */
+.clock-banner {
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
+    min-height: 45px; /* Bumped slightly to house the menu button layout cleanly */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Forces layout sizing to match the right actions block perfectly. 
+   This preserves the absolute center rendering track for world clocks. */
+.banner-left-controls {
+    display: flex;
+    align-items: center;
+    width: 122px; 
+    justify-content: flex-start;
+}
+
+.clock-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex: 1;
+}
+
+.clock-item {
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.clock-label {
+    color: var(--text-secondary);
+    margin-right: 5px;
+    font-weight: 600;
+}
+
+.clock-time {
+    color: var(--text-accent);
+    font-family: monospace;
+    font-weight: bold;
+}
+
+.banner-right-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 122px;
+    justify-content: flex-end;
+}
+
+/* Hamburger Menu Button Styling */
+.menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    height: 35px;
+    width: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.menu-toggle:hover {
+    background-color: var(--hover-color);
+}
+
+.hamburger-bar {
+    background-color: var(--text-primary);
+    height: 2px;
+    width: 22px;
+    transition: transform 0.3s, opacity 0.3s, background-color 0.2s;
+}
+
+/* ==========================================================================
+   3. Main Container & Sidebar (Multi-Level Menu)
+   ========================================================================== */
+.main-container {
+    flex: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar {
+    background-color: var(--bg-surface);
+    border-right: 0px solid var(--border-color); /* Hidden in default state */
+    width: 0px; /* Collapsed state completely flushes to left side edge */
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    position: relative;
+    overflow: visible;
+}
+
+.sidebar.expanded {
+    width: 260px;
+    border-right: 1px solid var(--border-color);
+}
+
+/* Animate standard horizontal hamburger stripes into a distinct close cross mark */
+body:has(.sidebar.expanded) .hamburger-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+body:has(.sidebar.expanded) .hamburger-bar:nth-child(2) { opacity: 0; }
+body:has(.sidebar.expanded) .hamburger-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-menu, .submenu {
+    list-style: none;
+    width: 100%;
+}
+
+.nav-menu {
+    margin-top: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s, visibility 0.15s;
+}
+
+.sidebar.expanded .nav-menu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu-item {
+    position: relative;
+    width: 100%;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    transition: background-color 0.2s, color 0.2s;
+    white-space: nowrap;
+    width: auto;  /* Change from implicit 100% to auto */
+}
+
+.menu-link:hover {
+    background-color: var(--hover-color);
+}
+
+.has-submenu > .menu-link::after {
+    content: '▶';
+    margin-left: auto;
+    font-size: 0.6rem;
+    color: var(--text-secondary);
+}
+
+.submenu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+    display: none;
+    width: auto;
+    min-width: 200px;
+}
+
+.menu-item:hover > .submenu {
+    display: block;
+}
+
+
+/* ==========================================================================
+   4. Content Frame Area
+   ========================================================================== */
+.content-area {
+    flex: 1;
+    background-color: var(--bg-main);
+    position: relative;
+    transition: background-color 0.2s ease;
+}
+
+#contentFrame {
+    width: 100%;
+    height: 95%;
+    border: none;
+    background-color: #ffffff; /* Frame backdrop canvas */
+}
+
+/* ==========================================================================
+   5. Bottom Marquee with Directional Node Animations
+   ========================================================================== */
+.marquee-footer {
+    background-color: var(--bg-surface);
+    border-top: 1px solid var(--border-color);
+    height: 35px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    z-index: 15;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Static label tag */
+.nameplate {
+    /* Retain previous style rule code structures here... */
+    transition: background-color 0.4s ease; /* Blends colors cleanly on state changes */
+}
+
+/* Marquee viewing lane */
+.marquee-wrapper {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.marquee-content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Hidden placement state for text strings */
+.marquee-node {
+    position: absolute;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    opacity: 0;
+    transform: translateY(100%);
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+/* Animation trigger assignments managed by JavaScript loop */
+.marquee-node.enter {
+    animation: slideUpIn 0.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+.marquee-node.exit {
+    animation: slideOutRight 0.5s cubic-bezier(0.8, 0.1, 1, 0.2) forwards;
+}
+
+/* Entry Animation: Scroll up from bottom view limits */
+@keyframes slideUpIn {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Exit Animation: Shift outward towards the right edge */
+@keyframes slideOutRight {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+}
