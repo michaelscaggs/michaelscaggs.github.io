@@ -277,7 +277,7 @@ function initMarqueeEngine() {
   // Push the dynamic option into the active feed array
   newsFeed.push({
       type: "DAILY", 
-      label: "DAILY UPDATE", 
+      label: "DAILY DAD JOKE", 
       colors: { dark: "#4a4a4a", light: "#d3d3d3" }, 
       textColors: { dark: "#ffffff", light: "#000000" }, 
       text: daySpecificText
