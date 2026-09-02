@@ -168,99 +168,221 @@ function initNavigationLinks() {
 
 /**
  * ==========================================================================
- * 5. Dynamic Data-Driven Marquee Engine with Nameplate Updates
+ * 5. Dynamic data-driven marquee engine with nameplate updates
  * ==========================================================================
  */
 function initMarqueeEngine() {
-    const marqueeContainer = document.getElementById("marqueeContent");
-    const nameplateContainer = document.getElementById("marqueeNameplate");
-    if (!marqueeContainer || !nameplateContainer) return;
+  const marqueeContainer = document.getElementById("marqueeContent");
+  const nameplateContainer = document.getElementById("marqueeNameplate");
 
-    // Structured data grid pairing labels, icons, alerts, and system colors
-    const newsFeed = [
-        {
-            type: "NORMAL",
-            label: "SYSTEM ONLINE",
-            color: "#10b981", // Emerald green theme color
-            text: "ℹ️ All remote servers operational and reporting healthy."
-        },
-        {
-            type: "SUCCESS",
-            label: "BACKUP COMPLETE",
-            color: "#06b6d4", // Cyan theme color
-            text: "💾 Critical structural database tables synced successfully to cloud nodes."
-        },
-        {
-            type: "WARNING",
-            label: "MAINTENANCE",
-            color: "#f59e0b", // Amber warning color
-            text: "⚠️ Core system maintenance window scheduled tonight at 04:00 UTC."
-        },
-        {
-            type: "CRITICAL",
-            label: "ALERT ACTIVE",
-            color: "#ef4444", // Deep red color accent
-            text: "🚨 High data traffic spike observed on Western Europe proxy cluster."
-        }
-    ];
+  if (!marqueeContainer || !nameplateContainer) return;
 
-    let currentIndex = 0;
-    const holdDuration = 4500;    // Time text remains static in center view (ms)
-    const animationBuffer = 500;  // Match time length for CSS layout keyframes (ms)
+  // Helper function to fetch the real-time theme state
+  function getIsLightMode() {
+    return document.documentElement.getAttribute('data-theme') === 'light' || 
+           window.matchMedia('(prefers-color-scheme: light)').matches;
+  }
 
-    // Helper generation factory to build custom text span elements
-    function createMarqueeNode(textString) {
-        const span = document.createElement("span");
-        span.className = "marquee-node";
-        span.textContent = textString;
-        return span;
+  // Raw feed data configuration array
+  const newsFeed = [
+    { 
+        type: "FLOOR", 
+        label: "FLOOR MANAGEMENT", 
+        colors: { dark: "#00629b", light: "#005587" }, // Spectrum Blue / Deep Sea Blue
+        textColors: { dark: "#002244", light: "#311d00" }, // Customized text colors
+        text: "🔥 Remember to poke the routers to close resolved Y6 jobs hourly." 
+    },
+    { 
+        type: "FLOOR", 
+        label: "FLOOR MANAGEMENT", 
+        colors: { dark: "#00629b", light: "#005587" }, // Spectrum Blue / Deep Sea Blue
+        textColors: { dark: "#002244", light: "#311d00" }, // Customized text colors
+        text: "🔥 Review Dan Ward tickets." 
+    },
+    { 
+        type: "PROCESS", 
+        label: "PROCESS REMINDER", 
+        colors: { dark: "#2d9966", light: "#1e6b45" }, // Vivid Green / Dark Forest Green
+        textColors: { dark: "#203731", light: "#ffb612" }, // Customized text colors
+        text: "⚠️ Override for closure on repeat outages requires DFE or above approval." 
+    },
+    { 
+        type: "PROCESS", 
+        label: "PROCESS REMINDER", 
+        colors: { dark: "#2d9966", light: "#1e6b45" }, // Vivid Green / Dark Forest Green
+        textColors: { dark: "#203731", light: "#ffb612" }, // Customized text colors
+        text: "⚠️ Check to make sure all related tickets are closed on fiber events." 
+    },
+    { 
+        type: "NEWS", 
+        label: "BREAKING NEWS", 
+        colors: { dark: "#e31837", light: "#5a1414" }, // Deep Red / Bright Red Alert
+        textColors: { dark: "#ffb612", light: "#ffb612" }, // Customized text colors
+        text: "🚨 Nebraska Technicians need to reach out to ROC North for assistance. 866-967-7611" 
+    },
+    { 
+        type: "NEWS", 
+        label: "BREAKING NEWS", 
+        colors: { dark: "#e31837", light: "#5a1414" }, // Deep Red / Bright Red Alert
+        textColors: { dark: "#ffb612", light: "#ffb612" }, // Customized text colors
+        text: "🚨 Louisiana has been transferred to ROC South. 844-220-2369" 
+    },
+    { 
+        type: "CRITICAL", 
+        label: "BREAKING NEWS", 
+        colors: { dark: "#880808", light: "#b30000" }, // Deep Red / Bright Red Alert
+        textColors: { dark: "#ffb612", light: "#ffb612" }, // Customized text colors
+        text: "🚨 Area Realignment complete in Lighthouse and Remedy" 
+    },
+    { 
+        type: "SPECIAL", 
+        label: "AWARDS", 
+        colors: { dark: "#2d9966", light: "#1e6b45" }, // Vivid Green / Dark Forest Green
+        textColors: { dark: "#ffffff", light: "#000000" }, // Customized text colors
+        text: "🏆 Congratulations to Julie Stiles on her Q2 Achievement Award." 
+    },
+    { 
+        type: "SPECIAL", 
+        label: "AWARDS", 
+        colors: { dark: "#2d9966", light: "#1e6b45" }, // Vivid Green / Dark Forest Green
+        textColors: { dark: "#ffffff", light: "#000000" }, // Customized text colors
+        text: "🏆 Don't forget to send a SPARK for a job well done." 
     }
+  ];
 
-    // Target configuration settings object for the initial baseline item
-    let currentItem = newsFeed[currentIndex];
-    let currentNode = createMarqueeNode(currentItem.text);
+  // ==========================================================================
+  // ADDED: Inject dynamic item based on the day of the week
+  // ==========================================================================
+  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const currentDayName = daysOfWeek[new Date().getDay()];
+  
+  // Customize your messages per day here
+  let daySpecificText = `📅 Happy ${currentDayName}! Make it a great day.`;
+  if (currentDayName === "Monday") {
+      daySpecificText = "📅 Monday Sync: Review week targets and queue health.";
+  } else if (currentDayName === "Friday") {
+      daySpecificText = "📅 Friday Wrap-up: Clean up assigned tickets before logging off.";
+  }
+
+  // Push the dynamic option into the active feed array
+  newsFeed.push({
+      type: "DAILY", 
+      label: "DAILY UPDATE", 
+      colors: { dark: "#4a4a4a", light: "#d3d3d3" }, 
+      textColors: { dark: "#ffffff", light: "#000000" }, 
+      text: daySpecificText
+  });
+  // ==========================================================================
+
+  let currentIndex = 0;
+  const holdDuration = 4500;    
+  const animationBuffer = 500;  
+
+  function createMarqueeNode(textString) {
+      const span = document.createElement("span");
+      span.className = "marquee-node";
+      span.textContent = textString;
+      return span;
+  }
+
+  // UPDATED: Factory now accepts and applies a txtColor parameter
+  function createNameplateNode(labelText, bgBgColor, txtColor) {
+      const div = document.createElement("div");
+      div.className = "nameplate-node";
+      div.style.backgroundColor = bgBgColor;
+      div.style.color = txtColor; // Sets text color
+      div.textContent = labelText;
+      return div;
+  }
+
+  // Core tracking configurations
+  let currentItem = newsFeed[currentIndex];
+  let currentNode = createMarqueeNode(currentItem.text);
+  
+  // Draw the initial active frame using runtime colors
+  let isLightInit = getIsLightMode();
+  let initialBgColor = isLightInit ? currentItem.colors.light : currentItem.colors.dark;
+  let initialTxtColor = isLightInit ? currentItem.textColors.light : currentItem.textColors.dark;
+  
+  let currentNameplateNode = createNameplateNode(currentItem.label, initialBgColor, initialTxtColor);
+  
+  nameplateContainer.replaceChildren(currentNameplateNode);
+  currentNameplateNode.classList.add("enter");
+  marqueeContainer.appendChild(currentNode);
+  
+  void currentNode.offsetWidth;
+  currentNode.classList.add("enter");
+
+  // Continuous timed cycle handler logic 
+  function cycleNewsFeed() {
+      const previousItem = currentItem;
+
+      currentIndex = (currentIndex + 1) % newsFeed.length;
+      currentItem = newsFeed[currentIndex];
+
+      const isTypeChanging = previousItem.type !== currentItem.type;
+
+      currentNode.classList.remove("enter");
+      currentNode.classList.add("exit");
+      const nodeToTrash = currentNode;
+
+      let nameplateToTrash = null;
+
+      if (isTypeChanging) {
+          currentNameplateNode.classList.remove("enter");
+          currentNameplateNode.classList.add("exit");
+          nameplateToTrash = currentNameplateNode;
+      }
+
+      setTimeout(() => {
+          nodeToTrash.remove();
+
+          const isLight = getIsLightMode();
+          const targetBgColor = isLight ? currentItem.colors.light : currentItem.colors.dark;
+          const targetTxtColor = isLight ? currentItem.textColors.light : currentItem.textColors.dark;
+
+          if (isTypeChanging) {
+              if (nameplateToTrash) nameplateToTrash.remove();
+
+              // Roll in a brand new nameplate node with background AND text color mapped
+              currentNameplateNode = createNameplateNode(currentItem.label, targetBgColor, targetTxtColor);
+              nameplateContainer.appendChild(currentNameplateNode);
+              
+              void currentNameplateNode.offsetWidth;
+              currentNameplateNode.classList.add("enter");
+          } else {
+              // Static Update: Update content and design parameters without rolling
+              currentNameplateNode.textContent = currentItem.label;
+              currentNameplateNode.style.backgroundColor = targetBgColor;
+              currentNameplateNode.style.color = targetTxtColor; // Update text color dynamically
+          }
+
+          currentNode = createMarqueeNode(currentItem.text);
+          marqueeContainer.appendChild(currentNode);
+
+          void currentNode.offsetWidth;
+          currentNode.classList.add("enter");
+
+      }, animationBuffer);
+  }
+
+  // Initialize loop cadence engine parameters
+  setInterval(cycleNewsFeed, holdDuration + animationBuffer);
+
+  // UPDATED: Theme watcher now re-binds text color immediately if flipped mid-cycle
+  const themeObserver = new MutationObserver(() => {
+    if (!currentNameplateNode) return;
+    const isLight = getIsLightMode();
+    const updatedBgColor = isLight ? currentItem.colors.light : currentItem.colors.dark;
+    const updatedTxtColor = isLight ? currentItem.textColors.light : currentItem.textColors.dark;
     
-    // Inject first state values into the UI elements instantly on panel load
-    nameplateContainer.textContent = currentItem.label;
-    nameplateContainer.style.backgroundColor = currentItem.color;
-    marqueeContainer.appendChild(currentNode);
-    
-    // Force a DOM engine layout reflow layout flush to trigger the entry animations
-    void currentNode.offsetWidth;
-    currentNode.classList.add("enter");
+    currentNameplateNode.style.backgroundColor = updatedBgColor;
+    currentNameplateNode.style.color = updatedTxtColor; // Immediate text color update
+  });
 
-    // Continuous timed cycle handler logic 
-    function cycleNewsFeed() {
-        // Step 1: Fire off horizontal exit transition script rules on the current active item
-        currentNode.classList.remove("enter");
-        currentNode.classList.add("exit");
-
-        const nodeToTrash = currentNode;
-
-        // Advance array index cursor tracking position
-        currentIndex = (currentIndex + 1) % newsFeed.length;
-        currentItem = newsFeed[currentIndex];
-
-        // Step 2: Hold script processing until the exit animation finishes cleanly
-        setTimeout(() => {
-            // Drop old node out of memory layout to keep performance running optimally
-            nodeToTrash.remove();
-
-            // Swap out nameplate label text and update background design parameters matching data config
-            nameplateContainer.textContent = currentItem.label;
-            nameplateContainer.style.backgroundColor = currentItem.color;
-
-            // Instantly spawn upcoming ticker line text entry instance 
-            currentNode = createMarqueeNode(currentItem.text);
-            marqueeContainer.appendChild(currentNode);
-
-            // Frame vertical scroll animation entry transition layer parameters
-            void currentNode.offsetWidth;
-            currentNode.classList.add("enter");
-
-        }, animationBuffer);
-    }
-
-    // Schedule recursive loop interval engine paths continuously
-    setInterval(cycleNewsFeed, holdDuration + animationBuffer);
+  themeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme']
+  });
 }
+
