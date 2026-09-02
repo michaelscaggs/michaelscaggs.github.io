@@ -254,6 +254,40 @@ function initMarqueeEngine() {
     }
   ];
 
+  // ==========================================================================
+  // ADDED: Inject dynamic item based on the day of the week
+  // ==========================================================================
+  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const currentDayName = daysOfWeek[new Date().getDay()];
+  
+  // Customize your messages per day here
+  let daySpecificText = ` Happy ${currentDayName}! Make it a great day.`;
+  if (currentDayName === "Monday") {
+      daySpecificText = "😂 Insert Dad Joke Here";
+  } else if (currentDayName === "Tuesday") {
+      daySpecificText = "😂 Insert Dad Joke Here";
+  } else if (currentDayName === "Wednesday") {
+      daySpecificText = "😂 Insert Dad Joke Here";
+  } else if (currentDayName === "Thursday") {
+      daySpecificText = "😂 Insert Dad Joke Here";
+  } else if (currentDayName === "Friday") {
+      daySpecificText = "😂 Insert Dad Joke Here";
+    } else if (currentDayName === "Saturday") {
+      daySpecificText = "😂 Insert Dad Joke Here";
+  } else if (currentDayName === "Sunday") {
+      daySpecificText = "😂 Insert Dad Joke Here";
+}
+
+  // Push the dynamic option into the active feed array
+  newsFeed.push({
+      type: "DAILY", 
+      label: "DAILY DAD JOKE", 
+      colors: { dark: "#4a4a4a", light: "#d3d3d3" }, 
+      textColors: { dark: "#ffffff", light: "#000000" }, 
+      text: daySpecificText
+  });
+  // ==========================================================================
+
   let currentIndex = 0;
   const holdDuration = 4500;    
   const animationBuffer = 500;  
@@ -365,7 +399,6 @@ function initMarqueeEngine() {
     attributeFilter: ['data-theme']
   });
 }
-
 /**
  * ==========================================================================
  * 6. Page Refresh Timer
