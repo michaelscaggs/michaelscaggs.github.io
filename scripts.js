@@ -263,15 +263,15 @@ function initMarqueeEngine() {
   } else if (currentDayName === "Tuesday") {
       daySpecificText = "😂 Insert Dad Joke Here";
   } else if (currentDayName === "Wednesday") {
-      daySpecificText = "😂 Friday Wrap-up: Clean up assigned tickets before logging off.";
+      daySpecificText = "😂 Insert Dad Joke Here";
   } else if (currentDayName === "Thursday") {
-      daySpecificText = "😂 Friday Wrap-up: Clean up assigned tickets before logging off.";
+      daySpecificText = "😂 Insert Dad Joke Here";
   } else if (currentDayName === "Friday") {
-      daySpecificText = "😂 Friday Wrap-up: Clean up assigned tickets before logging off.";
+      daySpecificText = "😂 Insert Dad Joke Here";
     } else if (currentDayName === "Saturday") {
-      daySpecificText = "😂 Friday Wrap-up: Clean up assigned tickets before logging off.";
+      daySpecificText = "😂 Insert Dad Joke Here";
   } else if (currentDayName === "Sunday") {
-      daySpecificText = "😂 Friday Wrap-up: Clean up assigned tickets before logging off.";
+      daySpecificText = "😂 Insert Dad Joke Here";
 }
 
   // Push the dynamic option into the active feed array
