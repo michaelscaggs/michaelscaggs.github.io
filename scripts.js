@@ -257,12 +257,22 @@ function initMarqueeEngine() {
   const currentDayName = daysOfWeek[new Date().getDay()];
   
   // Customize your messages per day here
-  let daySpecificText = `📅 Happy ${currentDayName}! Make it a great day.`;
+  let daySpecificText = ` Happy ${currentDayName}! Make it a great day.`;
   if (currentDayName === "Monday") {
-      daySpecificText = "📅 Monday Sync: Review week targets and queue health.";
+      daySpecificText = "😂 Insert Dad Joke Here";
+  } else if (currentDayName === "Tuesday") {
+      daySpecificText = "😂 Insert Dad Joke Here";
+  } else if (currentDayName === "Wednesday") {
+      daySpecificText = "😂 Friday Wrap-up: Clean up assigned tickets before logging off.";
+  } else if (currentDayName === "Thursday") {
+      daySpecificText = "😂 Friday Wrap-up: Clean up assigned tickets before logging off.";
   } else if (currentDayName === "Friday") {
-      daySpecificText = "📅 Friday Wrap-up: Clean up assigned tickets before logging off.";
-  }
+      daySpecificText = "😂 Friday Wrap-up: Clean up assigned tickets before logging off.";
+    } else if (currentDayName === "Saturday") {
+      daySpecificText = "😂 Friday Wrap-up: Clean up assigned tickets before logging off.";
+  } else if (currentDayName === "Sunday") {
+      daySpecificText = "😂 Friday Wrap-up: Clean up assigned tickets before logging off.";
+}
 
   // Push the dynamic option into the active feed array
   newsFeed.push({
