@@ -240,8 +240,8 @@ body:has(.sidebar.expanded) .hamburger-bar:nth-child(3) { transform: translateY(
    5. Bottom Marquee with Directional Node Animations
    ========================================================================== */
 .marquee-footer {
-    background-color: var(--bg-surface);
-    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-main);
+    border-top: none;
     height: 35px;
     display: flex;
     align-items: center;
@@ -250,10 +250,52 @@ body:has(.sidebar.expanded) .hamburger-bar:nth-child(3) { transform: translateY(
     transition: background-color 0.2s, border-color 0.2s;
 }
 
+/* Layout container must clip overflow and isolate children during rotation */
+#marqueeNameplate {
+  position: relative;
+  overflow: hidden;
+  perspective: 400px; /* Gives the roll a 3D depth effect */
+}
+
+/* Base style for the sliding/rotating item wrappers */
+.nameplate-node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s linear;
+  
+  /* Initial state: Hidden below and rotated backward */
+  transform: translateY(100%) rotateX(-90deg);
+  opacity: 0;
+}
+
+/* Active center view state */
+.nameplate-node.enter {
+  transform: translateY(0) rotateX(0deg);
+  opacity: 1;
+}
+
+/* Departure state: Rolls upward and out of frame */
+.nameplate-node.exit {
+  transform: translateY(-100%) rotateX(90deg);
+  opacity: 0;
+}
+
 /* Static label tag */
 .nameplate {
     /* Retain previous style rule code structures here... */
+    display: flex;
     transition: background-color 0.4s ease; /* Blends colors cleanly on state changes */
+    height: 35px;
+    width: 200px;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Marquee viewing lane */
@@ -319,3 +361,4 @@ body:has(.sidebar.expanded) .hamburger-bar:nth-child(3) { transform: translateY(
         transform: translateX(100px);
     }
 }
+
