@@ -15,8 +15,8 @@ overflow: hidden;
 }
 /* Slideshow container takes up exactly 90% of the viewport width and height */
 .slideshow-container {
-width: 90vw;
-height: 90vh;
+width: 100vw;
+height: 100vh;
 position: relative;
 box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 border-radius: 8px;
