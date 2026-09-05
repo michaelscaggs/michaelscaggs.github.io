@@ -186,102 +186,89 @@ function initMarqueeEngine() {
   // Raw feed data configuration array
   const newsFeed = [
     { 
-        type: "FLOOR", 
-        label: "FLOOR MANAGEMENT", 
-        colors: { dark: "#00629b", light: "#005587" }, // Spectrum Blue / Deep Sea Blue
-        textColors: { dark: "#002244", light: "#311d00" }, // Customized text colors
-        text: "🔥 Remember to poke the routers to close resolved Y6 jobs hourly." 
-    },
-    { 
-        type: "FLOOR", 
-        label: "FLOOR MANAGEMENT", 
-        colors: { dark: "#00629b", light: "#005587" }, // Spectrum Blue / Deep Sea Blue
-        textColors: { dark: "#002244", light: "#311d00" }, // Customized text colors
-        text: "🔥 Review Dan Ward tickets." 
-    },
-    { 
-        type: "PROCESS", 
-        label: "PROCESS REMINDER", 
-        colors: { dark: "#2d9966", light: "#1e6b45" }, // Vivid Green / Dark Forest Green
-        textColors: { dark: "#203731", light: "#ffb612" }, // Customized text colors
-        text: "⚠️ Override for closure on repeat outages requires DFE or above approval." 
-    },
-    { 
-        type: "PROCESS", 
-        label: "PROCESS REMINDER", 
-        colors: { dark: "#2d9966", light: "#1e6b45" }, // Vivid Green / Dark Forest Green
-        textColors: { dark: "#203731", light: "#ffb612" }, // Customized text colors
-        text: "⚠️ Check to make sure all related tickets are closed on fiber events." 
-    },
-    { 
-        type: "NEWS", 
-        label: "BREAKING NEWS", 
-        colors: { dark: "#e31837", light: "#5a1414" }, // Deep Red / Bright Red Alert
-        textColors: { dark: "#ffb612", light: "#ffb612" }, // Customized text colors
-        text: "🚨 Nebraska Technicians need to reach out to ROC North for assistance. 866-967-7611" 
-    },
-    { 
-        type: "NEWS", 
-        label: "BREAKING NEWS", 
-        colors: { dark: "#e31837", light: "#5a1414" }, // Deep Red / Bright Red Alert
-        textColors: { dark: "#ffb612", light: "#ffb612" }, // Customized text colors
-        text: "🚨 Louisiana has been transferred to ROC South. 844-220-2369" 
-    },
-    { 
         type: "CRITICAL", 
         label: "BREAKING NEWS", 
-        colors: { dark: "#880808", light: "#b30000" }, // Deep Red / Bright Red Alert
+        colors: { dark: "#e31837", light: "#5a1414" }, // Deep Red / Bright Red Alert
         textColors: { dark: "#ffb612", light: "#ffb612" }, // Customized text colors
-        text: "🚨 Area Realignment complete in Lighthouse and Remedy" 
+        text: "🚨 Watch this space for breaking headlines." 
     },
     { 
-        type: "SPECIAL", 
-        label: "AWARDS", 
+        type: "SYSTEM", 
+        label: "SYSTEM STATUS", 
         colors: { dark: "#2d9966", light: "#1e6b45" }, // Vivid Green / Dark Forest Green
         textColors: { dark: "#ffffff", light: "#000000" }, // Customized text colors
-        text: "🏆 Congratulations to Julie Stiles on her Q2 Achievement Award." 
+        text: "🖥️ System online with no known errors." 
     },
     { 
-        type: "SPECIAL", 
-        label: "AWARDS", 
+        type: "ANNOUNCE", 
+        label: "ANNOUNCEMENTS", 
         colors: { dark: "#2d9966", light: "#1e6b45" }, // Vivid Green / Dark Forest Green
         textColors: { dark: "#ffffff", light: "#000000" }, // Customized text colors
-        text: "🏆 Don't forget to send a SPARK for a job well done." 
+        text: "🚧 This site is still under construction. Change is to be expected." 
     }
   ];
 
-  // ==========================================================================
-  // ADDED: Inject dynamic item based on the day of the week
-  // ==========================================================================
-  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const currentDayName = daysOfWeek[new Date().getDay()];
+    // ==========================================================================
+    // ADDED: Inject dynamic item based on the day of the week
+    // ==========================================================================
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const currentDayName = daysOfWeek[new Date().getDay()];
+    
+    // Customize your messages per day here
+    let daySpecificText = ` Happy ${currentDayName}! Make it a great day.`;
+    if (currentDayName === "Monday") {
+        daySpecificText = "😂 Where do you take a sick pony?";
+    } else if (currentDayName === "Tuesday") {
+        daySpecificText = "😂 What do you call a fish wearing a bowtie?";
+    } else if (currentDayName === "Wednesday") {
+        daySpecificText = "😂 What picnic staple is absolutely sinful?";
+    } else if (currentDayName === "Thursday") {
+        daySpecificText = "😂 What is the opposite of Alphabet Soup?";
+    } else if (currentDayName === "Friday") {
+        daySpecificText = "😂 A lumberjack once claimed to have cut down exactly 56,742 trees.";
+      } else if (currentDayName === "Saturday") {
+        daySpecificText = "😂 I sleep for 20 hours a day.";
+    } else if (currentDayName === "Sunday") {
+        daySpecificText = "😂 Apparantly you can't use 'beefstew' as a password.";
+  };
   
-  // Customize your messages per day here
-  let daySpecificText = ` Happy ${currentDayName}! Make it a great day.`;
-  if (currentDayName === "Monday") {
-      daySpecificText = "😂 Insert Dad Joke Here";
-  } else if (currentDayName === "Tuesday") {
-      daySpecificText = "😂 Insert Dad Joke Here";
-  } else if (currentDayName === "Wednesday") {
-      daySpecificText = "😂 Insert Dad Joke Here";
-  } else if (currentDayName === "Thursday") {
-      daySpecificText = "😂 Insert Dad Joke Here";
-  } else if (currentDayName === "Friday") {
-      daySpecificText = "😂 Insert Dad Joke Here";
-    } else if (currentDayName === "Saturday") {
-      daySpecificText = "😂 Insert Dad Joke Here";
-  } else if (currentDayName === "Sunday") {
-      daySpecificText = "😂 Insert Dad Joke Here";
-}
+    // Customize your messages per day here
+    let daySpecificText2 = ` Happy ${currentDayName}! Make it a great day.`;
+    if (currentDayName === "Monday") {
+        daySpecificText2 = "😂 The horsepital.";
+    } else if (currentDayName === "Tuesday") {
+        daySpecificText2 = "😂 Sofishticated.";
+    } else if (currentDayName === "Wednesday") {
+        daySpecificText2 = "😂 Deviled Eggs.";
+    } else if (currentDayName === "Thursday") {
+        daySpecificText2 = "😂 Ramen Numerals.";
+    } else if (currentDayName === "Friday") {
+        daySpecificText2 = "😂 When asked to prove it, he showed his log.";
+      } else if (currentDayName === "Saturday") {
+        daySpecificText2 = "😂 I've gotten so good that I can do it with my eyes closed.";
+    } else if (currentDayName === "Sunday") {
+        daySpecificText2 = "😂 Turns out, it's not stroganoff.";
+  }
+    
+    // Push the first dynamic option into the active feed array
+    newsFeed.push({
+        type: "DAILY", 
+        label: "DAILY DAD JOKE", 
+        colors: { dark: "#4a4a4a", light: "#d3d3d3" }, 
+        textColors: { dark: "#ffffff", light: "#000000" }, 
+        text: daySpecificText
+    }); // <-- Fixed closing parenthesis and semicolon
 
-  // Push the dynamic option into the active feed array
-  newsFeed.push({
-      type: "DAILY", 
-      label: "DAILY DAD JOKE", 
-      colors: { dark: "#4a4a4a", light: "#d3d3d3" }, 
-      textColors: { dark: "#ffffff", light: "#000000" }, 
-      text: daySpecificText
-  });
+    // Push the second dynamic option into the active feed array
+    newsFeed.push({
+        type: "DAILY", 
+        label: "DAILY DAD JOKE", 
+        colors: { dark: "#4a4a4a", light: "#d3d3d3" }, 
+        textColors: { dark: "#ffffff", light: "#000000" }, 
+        text: daySpecificText2
+    }); // <-- Cleaned up nesting
+
+
   // ==========================================================================
 
   let currentIndex = 0;
