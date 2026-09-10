@@ -269,7 +269,74 @@ function initMarqueeEngine() {
     }); // <-- Cleaned up nesting
 
 
-  // ==========================================================================
+    // ==========================================================================
+    // EXPANDED: Local-Machine Driven Network Maintenance & Event Engine
+    // ==========================================================================
+    
+    // Captured directly from the user's device/web browser
+    const userLocalTimeMs = now.getTime(); 
+
+    // 1. Scheduled Specific Windows (Evaluated natively against the local device clock)
+    // NOTE: Write these times exactly as they should occur on the viewer's machine.
+    const scheduledEvents = [
+        {
+            name: "Q3 Network Lockdown",
+            // This will activate exactly at 10:00 PM (22:00) on the user's computer clock
+            start: new Date("2026-09-09T22:00:00").getTime(), 
+            end: new Date("2026-09-14T04:00:00").getTime(),
+            label: "LOCKDOWN ALERT",
+            text: "🔒 CRITICAL: Local network lockdown in progress. External traffic is restricted.",
+            colors: { dark: "#721c24", light: "#f8d7da" },
+            textColors: { dark: "#f5c6cb", light: "#721c24" }
+        },
+        {
+            name: "Emergency Security Patch",
+            start: new Date("2026-09-09T20:00:00").getTime(), 
+            end: new Date("2026-09-10T02:00:00").getTime(),
+            label: "SECURITY UPDATE",
+            text: "⚠️ NOTICE: Systems are undergoing hotfix patching. Expect minor service drops.",
+            colors: { dark: "#856404", light: "#fff3cd" },
+            textColors: { dark: "#ffeeba", light: "#856404" }
+        }
+    ];
+
+    // Evaluate and inject windows that fall into the machine's active time frame
+    scheduledEvents.forEach(event => {
+        if (userLocalTimeMs >= event.start && userLocalTimeMs <= event.end) {
+            newsFeed.push({
+                type: "MAINTENANCE_EVENT", 
+                label: event.label, 
+                colors: event.colors, 
+                textColors: event.textColors, 
+                text: event.text
+            });
+        }
+    });
+
+    // 2. Annual Holiday Overrides (Parsed safely using localized string padding)
+    const customDateEvents = {
+        "01-01": "🎆 Happy New Year!",
+        "07-04": "🎆 Happy Independence Day!",
+        "10-31": "🎃 Happy Halloween!",
+        "12-25": "🎄 Happy Holidays!"
+    };
+
+    // Extract month and date numbers explicitly matching the client's local calendar day
+    const localMonthStr = String(now.getMonth() + 1).padStart(2, '0');
+    const localDayStr = String(now.getDate()).padStart(2, '0');
+    const localDateKey = `${localMonthStr}-${localDayStr}`;
+
+    if (customDateEvents[localDateKey]) {
+        newsFeed.push({
+            type: "CALENDAR", 
+            label: "TODAY'S EVENT", 
+            colors: { dark: "#6f42c1", light: "#e2d9f3" }, 
+            textColors: { dark: "#ffffff", light: "#4b286d" }, 
+            text: customDateEvents[localDateKey]
+        });
+    }
+
+    // ==========================================================================
 
   let currentIndex = 0;
   const holdDuration = 4500;    
