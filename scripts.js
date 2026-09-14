@@ -410,3 +410,47 @@ function initMarqueeEngine() {
 	attributeFilter: ['data-theme']
 	});
 	}    
+
+// ==========================================================================
+// 6. Independent World Clock Label Image Injection Engine
+// ==========================================================================
+function initClockLabelImageInjection() {
+    // Target all items specifically using the clock-label class
+    const clockLabels = document.querySelectorAll(".clock-label");
+    if (clockLabels.length === 0) return;
+
+    const nowTime = new Date();
+    
+    // CONFIGURE YOUR TIMEFRAME HERE (Format: YYYY-MM-DDTHH:MM:SS)
+    const clockConfig = {
+        start: "2026-09-13T08:00:00", // Activates tomorrow morning
+        end:   "2026-09-18T17:00:00", // Deactivates Friday evening
+        imageUrl: "https://example.com" 
+    };
+
+    const startDate = new Date(clockConfig.start);
+    const endDate = new Date(clockConfig.end);
+
+    // Verify if the current local time falls strictly within the window
+    if (!isNaN(startDate) && !isNaN(endDate) && nowTime >= startDate && nowTime <= endDate) {
+        
+        clockLabels.forEach(label => {
+            // Apply the image styling directly to each clock label element
+            label.style.backgroundImage = `url('${clockConfig.imageUrl}')`;
+            label.style.backgroundSize = "cover";
+            label.style.backgroundPosition = "center";
+            label.style.backgroundRepeat = "no-repeat";
+            
+            // Optional: Ensure text remains readable over the image background
+            label.style.color = "#ffffff"; 
+            label.style.textShadow = "1px 1px 3px rgba(0, 0, 0, 0.8)";
+        });
+    }
+}
+
+// Execute the check immediately when the document is interactive
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initClockLabelImageInjection);
+} else {
+    initClockLabelImageInjection();
+}
