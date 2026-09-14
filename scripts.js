@@ -209,10 +209,39 @@ function initMarqueeEngine() {
   ];
 
     // ==========================================================================
-    // ADDED: Inject dynamic item based on the day of the week
+    // ADDED: Configurable Date and Time Range Injection Engine
+    // ==========================================================================
+    const nowTime = new Date();
+    
+    // CONFIGURE YOUR EVENT SCHEDULE HERE (Format: YYYY-MM-DDTHH:MM:SS)
+    const eventConfig = {
+        start: "2026-09-14T08:00:00", // Start Date & Time
+        end:   "2026-09-18T17:00:00", // End Date & Time
+        label: "SCHEDULED EVENT",
+        text:  "📅 Maintenance window scheduled for this Thursday at 14:00.",
+        colors: { dark: "#0056b3", light: "#cce5ff" },      // Theme colors
+        textColors: { dark: "#ffffff", light: "#004085" }  // Theme text colors
+    };
+
+    const startDate = new Date(eventConfig.start);
+    const endDate = new Date(eventConfig.end);
+
+    // Validate dates and verify if the user's current time falls within the window
+    if (!isNaN(startDate) && !isNaN(endDate) && nowTime >= startDate && nowTime <= endDate) {
+        newsFeed.push({
+            type: "SCHEDULED",
+            label: eventConfig.label,
+            colors: eventConfig.colors,
+            textColors: eventConfig.textColors,
+            text: eventConfig.text
+        });
+    }
+
+    // ==========================================================================
+    // EXISTING: Inject dynamic item based on the day of the week
     // ==========================================================================
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const currentDayName = daysOfWeek[new Date().getDay()];
+    const currentDayName = daysOfWeek[nowTime.getDay()]; // Optimized to reuse the nowTime variable
     
     // Customize your messages per day here
     let daySpecificText = ` Happy ${currentDayName}! Make it a great day.`;
@@ -257,7 +286,7 @@ function initMarqueeEngine() {
         colors: { dark: "#4a4a4a", light: "#d3d3d3" }, 
         textColors: { dark: "#ffffff", light: "#000000" }, 
         text: daySpecificText
-    }); // <-- Fixed closing parenthesis and semicolon
+    });
 
     // Push the second dynamic option into the active feed array
     newsFeed.push({
@@ -266,8 +295,10 @@ function initMarqueeEngine() {
         colors: { dark: "#4a4a4a", light: "#d3d3d3" }, 
         textColors: { dark: "#ffffff", light: "#000000" }, 
         text: daySpecificText2
-    }); // <-- Cleaned up nesting
-    // ==========================================================================
+    });
+
+
+  // ==========================================================================
 
   let currentIndex = 0;
   const holdDuration = 4500;    
@@ -370,14 +401,12 @@ function initMarqueeEngine() {
     const isLight = getIsLightMode();
     const updatedBgColor = isLight ? currentItem.colors.light : currentItem.colors.dark;
     const updatedTxtColor = isLight ? currentItem.textColors.light : currentItem.textColors.dark;
-    
-    currentNameplateNode.style.backgroundColor = updatedBgColor;
-    currentNameplateNode.style.color = updatedTxtColor; // Immediate text color update
-  });
-
-  themeObserver.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ['data-theme']
-  });
-}
-
+	currentNameplateNode.style.backgroundColor = updatedBgColor;
+	currentNameplateNode.style.color = updatedTxtColor; // Immediate text color update
+	});
+	
+	themeObserver.observe(document.documentElement, {
+	attributes: true,
+	attributeFilter: ['data-theme']
+	});
+	}    
