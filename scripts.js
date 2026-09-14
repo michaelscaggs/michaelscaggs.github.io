@@ -215,10 +215,10 @@ function initMarqueeEngine() {
     
     // CONFIGURE YOUR EVENT SCHEDULE HERE (Format: YYYY-MM-DDTHH:MM:SS)
     const eventConfig = {
-        start: "2026-09-14T08:00:00", // Start Date & Time
-        end:   "2026-09-18T17:00:00", // End Date & Time
-        label: "SCHEDULED EVENT",
-        text:  "📅 Maintenance window scheduled for this Thursday at 14:00.",
+        start: "2026-09-13T08:00:00", // Start Date & Time
+        end:   "2026-09-18T23:59:59", // End Date & Time
+        label: "NETWORK LOCKDOWN",
+        text:  "📅 Network Lockdown in effect for new parser installation and testing.",
         colors: { dark: "#0056b3", light: "#cce5ff" },      // Theme colors
         textColors: { dark: "#ffffff", light: "#004085" }  // Theme text colors
     };
