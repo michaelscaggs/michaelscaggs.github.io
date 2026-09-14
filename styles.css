@@ -85,7 +85,7 @@ body {
 }
 
 /* Styling updates for the clock labels when hosting a background image */
-.clock-label2 {
+.clock-item2 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
