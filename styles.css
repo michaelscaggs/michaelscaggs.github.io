@@ -84,6 +84,16 @@ body {
     font-weight: 600;
 }
 
+/* Styling updates for the clock labels when hosting a background image */
+.clock-label2 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  transition: background 0.3s ease, color 0.3s ease;
+  overflow: hidden;
+}
+
 .clock-time {
     color: var(--text-accent);
     font-family: monospace;
