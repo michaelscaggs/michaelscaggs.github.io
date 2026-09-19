@@ -423,9 +423,9 @@ function initClockLabelImageInjection() {
     
     // CONFIGURE YOUR TIMEFRAME HERE (Format: YYYY-MM-DDTHH:MM:SS)
     const clockConfig = {
-        start: "2026-09-13T08:00:00", // Activates tomorrow morning
-        end:   "2026-09-18T17:00:00", // Deactivates Friday evening
-        imageUrl: "https://example.com" 
+        start: "2026-11-25T00:00:00", // Activates tomorrow morning
+        end:   "2026-11-30T23:59:59", // Deactivates Friday evening
+        imageUrl: "https://as2.ftcdn.net/jpg/02/89/68/73/1000_F_289687396_NJmzK7RUU05vURfGFe0AVYNmYJp6ippw.jpg" 
     };
 
     const startDate = new Date(clockConfig.start);
