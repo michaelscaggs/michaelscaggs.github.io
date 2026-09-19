@@ -238,45 +238,45 @@ function initMarqueeEngine() {
     }
 
     // ==========================================================================
-    // EXISTING: Inject dynamic item based on the day of the week
+    // ADDED: Inject dynamic item based on the day of the week
     // ==========================================================================
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const currentDayName = daysOfWeek[nowTime.getDay()]; // Optimized to reuse the nowTime variable
+    const currentDayName = daysOfWeek[new Date().getDay()];
     
     // Customize your messages per day here
     let daySpecificText = ` Happy ${currentDayName}! Make it a great day.`;
     if (currentDayName === "Monday") {
-        daySpecificText = "😂 Where do you take a sick pony?";
+        daySpecificText = "😂 There's a book called 'Ten Miles to the Outhouse'";
     } else if (currentDayName === "Tuesday") {
-        daySpecificText = "😂 What do you call a fish wearing a bowtie?";
+        daySpecificText = "😂 What is an algorithim?";
     } else if (currentDayName === "Wednesday") {
-        daySpecificText = "😂 What picnic staple is absolutely sinful?";
+        daySpecificText = "😂 What's the best way to watch a fly fishing tournament?";
     } else if (currentDayName === "Thursday") {
-        daySpecificText = "😂 What is the opposite of Alphabet Soup?";
+        daySpecificText = "😂 Nice people don't have to learn about fractions.";
     } else if (currentDayName === "Friday") {
-        daySpecificText = "😂 A lumberjack once claimed to have cut down exactly 56,742 trees.";
+        daySpecificText = "😂 Not even going to joke about this. Today is 9-25.";
       } else if (currentDayName === "Saturday") {
-        daySpecificText = "😂 I sleep for 20 hours a day.";
+        daySpecificText = "😂 What do you call the bouncer at a tea shop?";
     } else if (currentDayName === "Sunday") {
-        daySpecificText = "😂 Apparantly you can't use 'beefstew' as a password.";
+        daySpecificText = "😂 I'm reading a book about a couple of insects who fall in love in an Italian city.";
   };
   
     // Customize your messages per day here
     let daySpecificText2 = ` Happy ${currentDayName}! Make it a great day.`;
     if (currentDayName === "Monday") {
-        daySpecificText2 = "😂 The horsepital.";
+        daySpecificText2 = "😂 Author: Willie Maykit";
     } else if (currentDayName === "Tuesday") {
-        daySpecificText2 = "😂 Sofishticated.";
+        daySpecificText2 = "😂 A groove laid down by a former Vice President.";
     } else if (currentDayName === "Wednesday") {
-        daySpecificText2 = "😂 Deviled Eggs.";
+        daySpecificText2 = "😂 Live stream.";
     } else if (currentDayName === "Thursday") {
-        daySpecificText2 = "😂 Ramen Numerals.";
+        daySpecificText2 = "😂 Because they're whole sum folk.";
     } else if (currentDayName === "Friday") {
-        daySpecificText2 = "😂 When asked to prove it, he showed his log.";
+        daySpecificText2 = "😂 It's enough to drive you crazy if you let it.";
       } else if (currentDayName === "Saturday") {
-        daySpecificText2 = "😂 I've gotten so good that I can do it with my eyes closed.";
+        daySpecificText2 = "😂 Securi-tea.";
     } else if (currentDayName === "Sunday") {
-        daySpecificText2 = "😂 Turns out, it's not stroganoff.";
+        daySpecificText2 = "😂 It's a Rome-ants novel.";
   }
     
     // Push the first dynamic option into the active feed array
