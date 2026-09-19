@@ -454,3 +454,16 @@ if (document.readyState === "loading") {
 } else {
     initClockLabelImageInjection();
 }
+/**
+ * ==========================================================================
+ * 7. Page Refresh Timer
+ * ==========================================================================
+ */
+ function setRefreshTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('refresh-time').textContent = timeString;
+        }
+        
+        // Execute the function
+        setRefreshTime();
