@@ -245,6 +245,30 @@ body:has(.sidebar.expanded) .hamburger-bar:nth-child(3) { transform: translateY(
     border: none;
     background-color: #ffffff; /* Frame backdrop canvas */
 }
+/* Utility class to hide the watermark smoothly */
+.watermark-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 0.3s ease;
+}
+
+/* Ensure the wrapper base has transition preparation */
+.iframe-watermark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; 
+  display: flex;
+  justify-content: flex-end; 
+  align-items: flex-end;     
+  padding: 20px;             
+  box-sizing: border-box;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease;
+}
 
 /* ==========================================================================
    5. Bottom Marquee with Directional Node Animations
