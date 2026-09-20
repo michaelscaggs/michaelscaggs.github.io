@@ -269,6 +269,11 @@ body:has(.sidebar.expanded) .hamburger-bar:nth-child(3) { transform: translateY(
   visibility: visible;
   transition: opacity 0.3s ease;
 }
+/* Scales the source image down to 10% of its native width */
+.iframe-watermark img {
+  width: 10%;
+  height: auto; /* Maintains original aspect ratio */
+}
 
 /* ==========================================================================
    5. Bottom Marquee with Directional Node Animations
