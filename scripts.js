@@ -434,7 +434,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // 1. Holiday Watermark Schedule Constraints
   const WATERMARK_START = new Date("2026-09-19T00:00:00");   
-  const WATERMARK_END   = new Date("2026-09-19T23:59:59"); 
+  const WATERMARK_END   = new Date("2026-09-21T23:59:59"); 
 
   // 2. Network Lockdown Schedule Constraints
   const startTime  = new Date("2026-11-22T00:00:00");
