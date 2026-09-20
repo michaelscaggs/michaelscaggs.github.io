@@ -441,8 +441,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const HOLIDAY_SCHEDULES = [
     {
       name: "Thanksgiving",
-      start: new Date("2026-11-26T00:00:00"),
-      end: new Date("2026-11-26T23:59:59"),
+      start: new Date("2026-09-19T00:00:00"),
+      end: new Date("2026-09-26T23:59:59"),
       imgSrc: "snoopy.jpg"
     },
     {
