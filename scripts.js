@@ -431,42 +431,94 @@ function initMarqueeEngine() {
  * ==========================================================================
  */
 document.addEventListener("DOMContentLoaded", () => {
-  
-  // 1. Holiday Watermark Schedule Constraints
-  const WATERMARK_START = new Date("2026-09-19T00:00:00");   
-  const WATERMARK_END   = new Date("2026-09-21T23:59:59"); 
+  const now = new Date();
 
-  // 2. Network Lockdown Schedule Constraints
-  const startTime  = new Date("2026-11-22T00:00:00");
-  const endTime    = new Date("2026-11-30T23:59:59");
+  // ==========================================
+  // CONFIGURATION: Holiday Watermarks
+  // ==========================================
+  const DEFAULT_IMG_SRC = "cmanalogo.svg";
 
+  const HOLIDAY_SCHEDULES = [
+    {
+      name: "Thanksgiving",
+      start: new Date("2026-11-26T00:00:00"),
+      end: new Date("2026-11-26T23:59:59"),
+      imgSrc: "snoopy.jpg"
+    },
+    {
+      name: "Christmas Eve & Day",
+      start: new Date("2026-12-24T00:00:00"),
+      end: new Date("2026-12-25T23:59:59"),
+      imgSrc: "snow.png"
+    },
+    {
+      name: "New Year",
+      start: new Date("2026-12-31T00:00:00"),
+      end: new Date("2027-01-01T23:59:59"),
+      imgSrc: "happynewyear1.gif"
+    }
+  ];
+
+  // ==========================================
+  // CONFIGURATION: Network Lockdowns
+  // ==========================================
+  const LOCKDOWN_SCHEDULES = [
+    {
+      name: "Q4 Change Freeze (Thanksgiving)",
+      start: new Date("2026-11-22T00:00:00"),
+      end: new Date("2026-11-30T23:59:59")
+    },
+    {
+      name: "EOY Change Freeze (Christmas/New Year)",
+      start: new Date("2026-12-18T00:00:00"),
+      end: new Date("2027-01-04T23:59:59")
+    }
+  ];
+
+  // ==========================================
+  // CONTROL LOGIC
+  // ==========================================
   function checkActiveSchedules() {
-    const now = new Date();
-
-    // --- Process Holiday Watermark Event ---
+    
+    // --- 1. Process Holiday Watermark Event ---
     const watermarkElement = document.getElementById("iframeWatermark");
+    
     if (watermarkElement) {
-      if (now >= WATERMARK_START && now <= WATERMARK_END) {
+      const watermarkImg = watermarkElement.querySelector("img");
+      const activeHoliday = HOLIDAY_SCHEDULES.find(holiday => now >= holiday.start && now <= holiday.end);
+
+      if (activeHoliday) {
+        if (watermarkImg) watermarkImg.src = activeHoliday.imgSrc;
         watermarkElement.classList.remove("watermark-hidden");
       } else {
+        if (watermarkImg) watermarkImg.src = DEFAULT_IMG_SRC;
         watermarkElement.classList.add("watermark-hidden");
       }
     }
+    
+    // --- 2. Process Network Lockdown Event ---
+    const activeLockdown = LOCKDOWN_SCHEDULES.find(lockdown => now >= lockdown.start && now <= lockdown.end);
 
-    // --- Process Network Lockdown Event ---
-    const lockdownElement = document.getElementById("local-timed-banner");
-    if (lockdownElement) {
-      if (now >= startTime && now <= endTime) {
-        lockdownElement.style.display = "block";
-      } else {
-        lockdownElement.style.display = "none";
-      }
+    if (activeLockdown) {
+      // Execute lockdown actions (e.g., displaying a warning banner, blocking UI inputs)
+      console.warn(`System Status: Active Network Lockdown [${activeLockdown.name}]`);
+      handleLockdownActivation(activeLockdown);
+    } else {
+      // Clear lockdown states if normal window
+      handleLockdownDeactivation();
     }
   }
 
-  // Run immediately on page load
-  checkActiveSchedules();
+  // --- Lockdown Helper Functions (Stubs for your implementation) ---
+  function handleLockdownActivation(lockdown) {
+    // Add logic here to display your lockdown banners or inject warnings
+    // Example: document.getElementById("lockdownBanner").textContent = `${lockdown.name} is in effect.`;
+  }
 
-  // Check every 60 seconds for live page instances
-  setInterval(checkActiveSchedules, 60000);
+  function handleLockdownDeactivation() {
+    // Add logic here to hide your lockdown banners or reset restrictions
+  }
+
+  // Run on initial load
+  checkActiveSchedules();
 });
