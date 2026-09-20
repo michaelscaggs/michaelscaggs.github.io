@@ -411,52 +411,9 @@ function initMarqueeEngine() {
 	});
 	}    
 
-// ==========================================================================
-// 6. Independent World Clock Label Image Injection Engine
-// ==========================================================================
-function initClockLabelImageInjection() {
-    // Target all items specifically using the clock-label class
-    const clockLabels = document.querySelectorAll(".clock-label");
-    if (clockLabels.length === 0) return;
-
-    const nowTime = new Date();
-    
-    // CONFIGURE YOUR TIMEFRAME HERE (Format: YYYY-MM-DDTHH:MM:SS)
-    const clockConfig = {
-        start: "2026-11-25T00:00:00", // Activates tomorrow morning
-        end:   "2026-11-30T23:59:59", // Deactivates Friday evening
-        imageUrl: "https://as2.ftcdn.net/jpg/02/89/68/73/1000_F_289687396_NJmzK7RUU05vURfGFe0AVYNmYJp6ippw.jpg" 
-    };
-
-    const startDate = new Date(clockConfig.start);
-    const endDate = new Date(clockConfig.end);
-
-    // Verify if the current local time falls strictly within the window
-    if (!isNaN(startDate) && !isNaN(endDate) && nowTime >= startDate && nowTime <= endDate) {
-        
-        clockLabels.forEach(label => {
-            // Apply the image styling directly to each clock label element
-            label.style.backgroundImage = `url('${clockConfig.imageUrl}')`;
-            label.style.backgroundSize = "cover";
-            label.style.backgroundPosition = "center";
-            label.style.backgroundRepeat = "no-repeat";
-            
-            // Optional: Ensure text remains readable over the image background
-            label.style.color = "#ffffff"; 
-            label.style.textShadow = "1px 1px 3px rgba(0, 0, 0, 0.8)";
-        });
-    }
-}
-
-// Execute the check immediately when the document is interactive
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initClockLabelImageInjection);
-} else {
-    initClockLabelImageInjection();
-}
 /**
  * ==========================================================================
- * 7. Page Refresh Timer
+ * 6. Page Refresh Timer
  * ==========================================================================
  */
  function setRefreshTime() {
@@ -467,3 +424,49 @@ if (document.readyState === "loading") {
         
         // Execute the function
         setRefreshTime();
+
+/*
+ * ==========================================================================
+ * 7. Combined Banner & Watermark Schedule Control
+ * ==========================================================================
+ */
+document.addEventListener("DOMContentLoaded", () => {
+  
+  // 1. Holiday Watermark Schedule Constraints
+  const WATERMARK_START = new Date("2026-09-19T00:00:00");   
+  const WATERMARK_END   = new Date("2026-09-19T23:59:59"); 
+
+  // 2. Network Lockdown Schedule Constraints
+  const startTime  = new Date("2026-11-22T00:00:00");
+  const endTime    = new Date("2026-11-30T23:59:59");
+
+  function checkActiveSchedules() {
+    const now = new Date();
+
+    // --- Process Holiday Watermark Event ---
+    const watermarkElement = document.getElementById("iframeWatermark");
+    if (watermarkElement) {
+      if (now >= WATERMARK_START && now <= WATERMARK_END) {
+        watermarkElement.classList.remove("watermark-hidden");
+      } else {
+        watermarkElement.classList.add("watermark-hidden");
+      }
+    }
+
+    // --- Process Network Lockdown Event ---
+    const lockdownElement = document.getElementById("local-timed-banner");
+    if (lockdownElement) {
+      if (now >= startTime && now <= endTime) {
+        lockdownElement.style.display = "block";
+      } else {
+        lockdownElement.style.display = "none";
+      }
+    }
+  }
+
+  // Run immediately on page load
+  checkActiveSchedules();
+
+  // Check every 60 seconds for live page instances
+  setInterval(checkActiveSchedules, 60000);
+});
