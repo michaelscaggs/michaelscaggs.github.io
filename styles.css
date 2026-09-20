@@ -265,7 +265,7 @@ body:has(.sidebar.expanded) .hamburger-bar:nth-child(3) { transform: translateY(
   align-items: flex-end;     
   padding: 20px;             
   box-sizing: border-box;
-  opacity: 0.60;
+  opacity: 1;
   visibility: visible;
   transition: opacity 0.3s ease;
 }
