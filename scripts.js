@@ -453,7 +453,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       name: "New Year",
-      start: new Date("2026-09-01T00:00:00"),
+      start: new Date("2026-12-31T00:00:00"),
       end: new Date("2027-01-01T23:59:59"),
       imgSrc: "happynewyear1.gif"
     }
