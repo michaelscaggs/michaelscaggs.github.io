@@ -254,7 +254,7 @@ function initMarqueeEngine() {
     } else if (currentDayName === "Thursday") {
         daySpecificText = "😂 What did Sting say when he got to the beach?";
     } else if (currentDayName === "Friday") {
-        daySpecificText = "😂 Not even going to joke about this. Today is 9-25.";
+        daySpecificText = "😂 What do you call a beehive with no exits?";
       } else if (currentDayName === "Saturday") {
         daySpecificText = "😂 My friend was telling me he got a job at a bowling alley. I asked him, 'Tenpin?'";
     } else if (currentDayName === "Sunday") {
@@ -272,7 +272,7 @@ function initMarqueeEngine() {
     } else if (currentDayName === "Thursday") {
         daySpecificText2 = "😂 Rock sand.";
     } else if (currentDayName === "Friday") {
-        daySpecificText2 = "😂 It's enough to drive you crazy if you let it.";
+        daySpecificText2 = "😂 Un-bee-leave-able.";
       } else if (currentDayName === "Saturday") {
         daySpecificText2 = "😂 He says, 'No, permanent.'";
     } else if (currentDayName === "Sunday") {
