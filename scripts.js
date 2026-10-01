@@ -246,37 +246,37 @@ function initMarqueeEngine() {
     // Customize your messages per day here
     let daySpecificText = ` Happy ${currentDayName}! Make it a great day.`;
     if (currentDayName === "Monday") {
-        daySpecificText = "😂 Did you hear about the landmine inspector who was injured on the job?";
+        daySpecificText = "😂 Where do ghosts cool off in the summer?";
     } else if (currentDayName === "Tuesday") {
-        daySpecificText = "😂 My son told his first carpenter joke yesterday.";
+        daySpecificText = "😂 What do you call someone who only believes in about 12.5% of the bible?";
     } else if (currentDayName === "Wednesday") {
-        daySpecificText = "😂 Eating too many sweets is considered the sin of gluttony.";
+        daySpecificText = "😂 My old car finally gave out.";
     } else if (currentDayName === "Thursday") {
         daySpecificText = "😂 What did Sting say when he got to the beach?";
     } else if (currentDayName === "Friday") {
         daySpecificText = "😂 What do you call a beehive with no exits?";
       } else if (currentDayName === "Saturday") {
-        daySpecificText = "😂 My friend was telling me he got a job at a bowling alley. I asked him, 'Tenpin?'";
+        daySpecificText = "😂 I have an ant in my ant farm that I dressed up as a clown.'";
     } else if (currentDayName === "Sunday") {
-        daySpecificText = "😂 Curiosity killed the cat.";
+        daySpecificText = "😂 I don't like computer science jokes.";
   };
   
     // Customize your messages per day here
     let daySpecificText2 = ` Happy ${currentDayName}! Make it a great day.`;
     if (currentDayName === "Monday") {
-        daySpecificText2 = "😂 He decided to press charges.";
+        daySpecificText2 = "😂 Lake Eerie.";
     } else if (currentDayName === "Tuesday") {
-        daySpecificText2 = "😂 He really nailed it.";
+        daySpecificText2 = "😂 An Eighth-theist.";
     } else if (currentDayName === "Wednesday") {
-        daySpecificText2 = "😂 Which is why I only eat pi. The sin of pi is zero.";
+        daySpecificText2 = "😂 May it rust in peace.";
     } else if (currentDayName === "Thursday") {
         daySpecificText2 = "😂 Rock sand.";
     } else if (currentDayName === "Friday") {
         daySpecificText2 = "😂 Un-bee-leave-able.";
       } else if (currentDayName === "Saturday") {
-        daySpecificText2 = "😂 He says, 'No, permanent.'";
+        daySpecificText2 = "😂 He's my anti-depress-ant.'";
     } else if (currentDayName === "Sunday") {
-        daySpecificText2 = "😂 Scientists are still trying to figure out how it got to Mars.";
+        daySpecificText2 = "😂 Nope. Not one bit. In fact, I think they byte.";
   }
     
     // Push the first dynamic option into the active feed array
