@@ -246,38 +246,36 @@ function initMarqueeEngine() {
     // Customize your messages per day here
     let daySpecificText = ` Happy ${currentDayName}! Make it a great day.`;
     if (currentDayName === "Monday") {
-        daySpecificText = "😂 Where do ghosts cool off in the summer?";
+        daySpecificText = "😂 A photon goes to a hotel, the bellhop offers to take his luggage.";
     } else if (currentDayName === "Tuesday") {
-        daySpecificText = "😂 What do you call someone who only believes in about 12.5% of the bible?";
+        daySpecificText = "😂 If your spouse can't ever make a decent pot of coffee...";
     } else if (currentDayName === "Wednesday") {
-        daySpecificText = "😂 My old car finally gave out.";
+        daySpecificText = "😂 My wife suggested that I should do some lunges to start working out.";
     } else if (currentDayName === "Thursday") {
-        daySpecificText = "😂 What did Sting say when he got to the beach?";
+        daySpecificText = "😂 I saw a DeLorean for sale the other day.";
     } else if (currentDayName === "Friday") {
-        daySpecificText = "😂 What do you call a beehive with no exits?";
-      } else if (currentDayName === "Saturday") {
-        daySpecificText = "😂 I have an ant in my ant farm that I dressed up as a clown.'";
+        daySpecificText = "😂 Scientists started to cross-breed a leopard and a crab.";
+    } else if (currentDayName === "Saturday") {
+        daySpecificText = "😂 My favorite part of having to interrogate a duck?";
     } else if (currentDayName === "Sunday") {
-        daySpecificText = "😂 I don't like computer science jokes.";
-  };
-  
-    // Customize your messages per day here
-    let daySpecificText2 = ` Happy ${currentDayName}! Make it a great day.`;
+        daySpecificText = "😂 My dad got lost in the fog.";
+    }
+    let daySpecificText2 =  ` Happy ${currentDayName}! Make it a great day.`;
     if (currentDayName === "Monday") {
-        daySpecificText2 = "😂 Lake Eerie.";
+        daySpecificText2 = "😂 'No thanks' says the photon, 'I'm travelling light.'";
     } else if (currentDayName === "Tuesday") {
-        daySpecificText2 = "😂 An Eighth-theist.";
+        daySpecificText2 = "😂 Is that grounds for divorce?";
     } else if (currentDayName === "Wednesday") {
-        daySpecificText2 = "😂 May it rust in peace.";
+        daySpecificText2 = "😂 She told me it would be a huge step forward.";
     } else if (currentDayName === "Thursday") {
-        daySpecificText2 = "😂 Rock sand.";
+        daySpecificText2 = "😂 The ad read: Low mileage, only driven from time to time.";
     } else if (currentDayName === "Friday") {
-        daySpecificText2 = "😂 Un-bee-leave-able.";
-      } else if (currentDayName === "Saturday") {
-        daySpecificText2 = "😂 He's my anti-depress-ant.'";
+        daySpecificText2 = "😂 They stopped when they realized it could go sideways fast.";
+    } else if (currentDayName === "Saturday") {
+        daySpecificText2 = "😂 If you keep it up long enough, he'll quack.";
     } else if (currentDayName === "Sunday") {
-        daySpecificText2 = "😂 Nope. Not one bit. In fact, I think they byte.";
-  }
+        daySpecificText2 = "😂 He will be mist.";
+    }
     
     // Push the first dynamic option into the active feed array
     newsFeed.push({
