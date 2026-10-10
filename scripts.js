@@ -205,7 +205,35 @@ function initMarqueeEngine() {
         colors: { dark: "#2d9966", light: "#1e6b45" }, // Vivid Green / Dark Forest Green
         textColors: { dark: "#ffffff", light: "#000000" }, // Customized text colors
         text: "🚧 This site is still under construction. Change is to be expected." 
-    }
+    },
+	{ 
+		  type: "LYRIC", 
+		  label: "MANDATORY METALLICA", 
+		  colors: { dark: "#ffd500", light: "#ffcc00" }, 
+		  textColors: { dark: "#000000", light: "#000000" }, 
+		  text: "All sinners a future, all Saints a past." 
+		},
+		{ 
+		  type: "LYRIC", 
+		  label: "MANDATORY METALLICA", 
+		  colors: { dark: "#ffd500", light: "#ffcc00" }, 
+		  textColors: { dark: "#000000", light: "#000000" }, 
+		  text: "How can I be lost, if I've got nowhere to go?" 
+		},
+		{ 
+		  type: "LYRIC", 
+		  label: "MANDATORY METALLICA", 
+		  colors: { dark: "#ffd500", light: "#ffcc00" }, 
+		  textColors: { dark: "#000000", light: "#000000" }, 
+		  text: "Isolate and fight your mind, tellin' you you're left behind." 
+		},
+		{ 
+		  type: "LYRIC", 
+		  label: "MANDATORY METALLICA", 
+		  colors: { dark: "#ffd500", light: "#ffcc00" }, 
+		  textColors: { dark: "#000000", light: "#000000" }, 
+		  text: "...and when you see me strut, remind me of what left this outlaw torn." 
+		},
   ];
 
     // ==========================================================================
