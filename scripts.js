@@ -472,7 +472,7 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "Thanksgiving",
       start: new Date("2026-10-22T00:00:00"),
       end: new Date("2026-11-26T23:59:59"),
-      imgSrc: "snoopy.jpg"
+      imgSrc: "snoopy.gif"
     },
     {
       name: "Christmas Eve & Day",
