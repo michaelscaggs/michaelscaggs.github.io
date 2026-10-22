@@ -236,34 +236,47 @@ function initMarqueeEngine() {
 		},
   ];
 
-    // ==========================================================================
-    // ADDED: Configurable Date and Time Range Injection Engine
-    // ==========================================================================
-    const nowTime = new Date();
-    
-    // CONFIGURE YOUR EVENT SCHEDULE HERE (Format: YYYY-MM-DDTHH:MM:SS)
-    const eventConfig = {
-        start: "2026-09-13T08:00:00", // Start Date & Time
-        end:   "2026-09-18T23:59:59", // End Date & Time
-        label: "NETWORK LOCKDOWN",
-        text:  "📅 Network Lockdown in effect for new parser installation and testing.",
-        colors: { dark: "#0056b3", light: "#cce5ff" },      // Theme colors
-        textColors: { dark: "#ffffff", light: "#004085" }  // Theme text colors
-    };
+// ==========================================================================
+// ADDED: Configurable Date and Time Range Injection Engine (Multi-Event)
+// ==========================================================================
+const nowTime = new Date();
 
-    const startDate = new Date(eventConfig.start);
-    const endDate = new Date(eventConfig.end);
+// CONFIGURE YOUR EVENT SCHEDULE HERE (Format: YYYY-MM-DDTHH:MM:SS)
+const eventConfigs = [
+  {
+    start: "2026-10-22T06:30:00", // Start Date & Time
+    end:   "2026-10-22T07:29:59", // End Date & Time
+    label: "NETWORK LOCKDOWN",
+    text:  "📅 Network Lockdown in effect for new parser installation and testing.",
+    colors: { dark: "#0056b3", light: "#cce5ff" },      // Theme colors
+    textColors: { dark: "#ffffff", light: "#004085" }  // Theme text colors
+  },
+  {
+    start: "2026-10-22T07:30:00", // Start Date & Time
+    end:   "2026-10-22T07:59:59", // End Date & Time
+    label: "NETWORK LOCKDOWN",
+    text:  "📅 Parser installation complete. All systems confirmed operational.",
+    colors: { dark: "#0056b3", light: "#cce5ff" },      // Theme colors
+    textColors: { dark: "#ffffff", light: "#004085" }  // Theme text colors
+  },
+];
 
-    // Validate dates and verify if the user's current time falls within the window
-    if (!isNaN(startDate) && !isNaN(endDate) && nowTime >= startDate && nowTime <= endDate) {
-        newsFeed.push({
-            type: "SCHEDULED",
-            label: eventConfig.label,
-            colors: eventConfig.colors,
-            textColors: eventConfig.textColors,
-            text: eventConfig.text
-        });
-    }
+// Loop through each event config and inject active ones into the news feed
+eventConfigs.forEach(event => {
+  const startDate = new Date(event.start);
+  const endDate = new Date(event.end);
+
+  // Validate dates and verify if the user's current time falls within the window
+  if (!isNaN(startDate) && !isNaN(endDate) && nowTime >= startDate && nowTime <= endDate) {
+    newsFeed.push({
+      type: "SCHEDULED",
+      label: event.label,
+      colors: event.colors,
+      textColors: event.textColors,
+      text: event.text
+    });
+  }
+});
 
     // ==========================================================================
     // ADDED: Inject dynamic item based on the day of the week
