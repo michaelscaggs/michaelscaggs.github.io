@@ -478,7 +478,7 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "Christmas Eve & Day",
       start: new Date("2026-12-24T00:00:00"),
       end: new Date("2026-12-25T23:59:59"),
-      imgSrc: "snow.png"
+      imgSrc: "christmas.gif"
     },
     {
       name: "New Year",
