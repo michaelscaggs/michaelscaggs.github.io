@@ -5,56 +5,56 @@
       "label": "FLOOR MANAGEMENT", 
       "colors": { "dark": "#00629b", "light": "#005587" }, 
       "textColors": { "dark": "#002244", "light": "#311d00" }, 
-      "text": "🔥 Remember to poke the routers to close resolved Y6 jobs hourly." 
+      "text": "🔥 Something goes here." 
     },
     { 
       "type": "FLOOR", 
       "label": "FLOOR MANAGEMENT", 
       "colors": { "dark": "#00629b", "light": "#005587" }, 
       "textColors": { "dark": "#002244", "light": "#311d00" }, 
-      "text": "🔥 Review Dan Ward tickets." 
+      "text": "🔥 Something goes here." 
     },
     { 
       "type": "PROCESS", 
       "label": "PROCESS REMINDER", 
       "colors": { "dark": "#2d9966", "light": "#1e6b45" }, 
       "textColors": { "dark": "#203731", "light": "#ffb612" }, 
-      "text": "⚠️ Override for closure on repeat outages requires DFE or above approval." 
+      "text": "⚠️ Something else goes here." 
     },
     { 
       "type": "PROCESS", 
       "label": "PROCESS REMINDER", 
       "colors": { "dark": "#2d9966", "light": "#1e6b45" }, 
       "textColors": { "dark": "#203731", "light": "#ffb612" }, 
-      "text": "⚠️ Check to make sure all related tickets are closed on fiber events." 
+      "text": "⚠️ Something else goes here." 
     },
     { 
       "type": "PROMOTIONS", 
       "label": "PROMOTIONS", 
       "colors": { "dark": "#2d9966", "light": "#1e6b45" }, 
       "textColors": { "dark": "#ffffff", "light": "#000000" }, 
-      "text": "🏆 Congratulations to new ROC IV Andrew Hawileh." 
+      "text": "🏆 Congratulations to promoted associates." 
     },
     { 
       "type": "PROMOTIONS", 
       "label": "PROMOTIONS", 
       "colors": { "dark": "#006778", "light": "#008e97" }, 
       "textColors": { "dark": "#ffffff", "light": "#000000" }, 
-      "text": "🏆 Welcome the new 3rd Shift ROC Supervisor - Edgar Valencia." 
+      "text": "🏆 Congratulations to promoted associates." 
     },
     { 
       "type": "SPECIAL", 
       "label": "AWARDS", 
       "colors": { "dark": "#2d9966", "light": "#1e6b45" }, 
       "textColors": { "dark": "#ffffff", "light": "#000000" }, 
-      "text": "🏆 Don't forget to send a SPARK for a job well done." 
+      "text": "🏆 Tell people they did a good job." 
     }
   ],
   "eventConfig": {
     "start": "2026-11-25T00:00:00", 
     "end":   "2026-11-30T23:59:59", 
     "label": "NETWORK LOCKDOWN",
-    "text":  "📅 Network Lockdown for Thanksgiving, including Black Friday and Cyber Monday.",
+    "text":  "📅 Network Lockdown for Holiday.",
     "colors": { "dark": "#0056b3", "light": "#cce5ff" },      
     "textColors": { "dark": "#ffffff", "light": "#004085" }  
   }
