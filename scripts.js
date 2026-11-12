@@ -281,38 +281,24 @@ eventConfigs.forEach(event => {
     
 // Customize your messages per day here
     let daySpecificText = ` Happy ${currentDayName}! Make it a great day.`;
-      if (currentDayName === "Monday") {
-          daySpecificText = "😂 A photon goes to a hotel, the bellhop offers to take his luggage.";
-      } else if (currentDayName === "Tuesday") {
-          daySpecificText = "😂 If your spouse can't ever make a decent pot of coffee...";
-      } else if (currentDayName === "Wednesday") {
-          daySpecificText = "😂 My wife suggested that I should do some lunges to start working out.";
-      } else if (currentDayName === "Thursday") {
-          daySpecificText = "😂 I saw a DeLorean for sale the other day.";
-      } else if (currentDayName === "Friday") {
-          daySpecificText = "😂 Scientists started to cross-breed a leopard and a crab.";
-      } else if (currentDayName === "Saturday") {
-          daySpecificText = "😂 My favorite part of having to interrogate a duck?";
-      } else if (currentDayName === "Sunday") {
-          daySpecificText = "😂 My dad got lost in the fog.";
-      }
+        if (currentDayName === "Monday") { daySpecificText = "😂 Egypt is known to be the land of single parents."; }
+        else if (currentDayName === "Tuesday") { daySpecificText = "😂 Why didn't the pasta ask his friend to help him move?"; }
+        else if (currentDayName === "Wednesday") { daySpecificText = "😂 Why would a dentist want to be gentle with a patient?"; }
+        else if (currentDayName === "Thursday") { daySpecificText = "😂 Accidentally sprayed deodorant in my mouth the other day."; }
+        else if (currentDayName === "Friday") { daySpecificText = "😂 Wanted to write a sewing joke."; }
+        else if (currentDayName === "Saturday") { daySpecificText = "😂 I caused an accident after hearing a joke in the car."; }
+        else if (currentDayName === "Sunday") { daySpecificText = "😂 Arnold Schwarzenegger is going to play a famous 17th century composer."; }
+
     let daySpecificText2 =  ` Happy ${currentDayName}! Make it a great day.`;
-      if (currentDayName === "Monday") {
-          daySpecificText2 = "😂 'No thanks' says the photon, 'I'm travelling light.'";
-      } else if (currentDayName === "Tuesday") {
-          daySpecificText2 = "😂 Is that grounds for divorce?";
-      } else if (currentDayName === "Wednesday") {
-          daySpecificText2 = "😂 She told me it would be a huge step forward.";
-      } else if (currentDayName === "Thursday") {
-          daySpecificText2 = "😂 The ad read: Low mileage, only driven from time to time.";
-      } else if (currentDayName === "Friday") {
-          daySpecificText2 = "😂 They stopped when they realized it could go sideways fast.";
-      } else if (currentDayName === "Saturday") {
-          daySpecificText2 = "😂 If you keep it up long enough, he'll quack.";
-      } else if (currentDayName === "Sunday") {
-          daySpecificText2 = "😂 He will be mist.";
-      }
-// Push the first dynamic option into the active feed array
+    	if (currentDayName === "Monday") { daySpecificText2 = "😂 All those mummies and not a single daddy.'"; }
+        else if (currentDayName === "Tuesday") { daySpecificText2 = "😂 He didn't know if he was stroganoff."; }
+        else if (currentDayName === "Wednesday") { daySpecificText2 = "😂 To avoid hurting their fillings."; }
+        else if (currentDayName === "Thursday") { daySpecificText2 = "😂 Spent the day speaking with a weird Axe-scent."; }
+        else if (currentDayName === "Friday") { daySpecificText2 = "😂 Couldn't find any good material though."; }
+        else if (currentDayName === "Saturday") { daySpecificText2 = "😂 I was charged with vehicular man's laughter."; }
+        else if (currentDayName === "Sunday") { daySpecificText2 = "😂 When reached for comment, he said 'I'll be Bach'."; }
+	
+	// Push the first dynamic option into the active feed array
     newsFeed.push({
         type: "DAILY", 
         label: "DAILY DAD JOKE", 
