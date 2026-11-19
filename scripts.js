@@ -280,23 +280,23 @@ eventConfigs.forEach(event => {
     const currentDayName = daysOfWeek[new Date().getDay()];
     
 // Customize your messages per day here
-    let daySpecificText = ` Happy ${currentDayName}! Make it a great day.`;
-        if (currentDayName === "Monday") { daySpecificText = "😂 Egypt is known to be the land of single parents."; }
-        else if (currentDayName === "Tuesday") { daySpecificText = "😂 Why didn't the pasta ask his friend to help him move?"; }
-        else if (currentDayName === "Wednesday") { daySpecificText = "😂 Why would a dentist want to be gentle with a patient?"; }
-        else if (currentDayName === "Thursday") { daySpecificText = "😂 Accidentally sprayed deodorant in my mouth the other day."; }
-        else if (currentDayName === "Friday") { daySpecificText = "😂 Wanted to write a sewing joke."; }
-        else if (currentDayName === "Saturday") { daySpecificText = "😂 I caused an accident after hearing a joke in the car."; }
-        else if (currentDayName === "Sunday") { daySpecificText = "😂 Arnold Schwarzenegger is going to play a famous 17th century composer."; }
+	let daySpecificText = ` Happy ${currentDayName}! Make it a great day.`;
+	if (currentDayName === "Monday") { daySpecificText = "😂 A chicken stopped a turkey from crossing the street."; }
+	else if (currentDayName === "Tuesday") { daySpecificText = "😂 What did the turkey say to the hunter at Thanksgiving?"; }
+	else if (currentDayName === "Wednesday") { daySpecificText = "😂 Had a friend named Tony who asked that we never spell his name backwards."; }
+	else if (currentDayName === "Thursday") { daySpecificText = "😂 A horse walks into a bar."; }
+	else if (currentDayName === "Friday") { daySpecificText = "😂 What is a vampire's favorite holiday?"; }
+	else if (currentDayName === "Saturday") { daySpecificText = "😂 No matter how many times the country tries to institute the metric system..."; }
+	else if (currentDayName === "Sunday") { daySpecificText = "😂 Did you hear about the hotel maid that got fired on her first day?"; }
 
-    let daySpecificText2 =  ` Happy ${currentDayName}! Make it a great day.`;
-    	if (currentDayName === "Monday") { daySpecificText2 = "😂 All those mummies and not a single daddy.'"; }
-        else if (currentDayName === "Tuesday") { daySpecificText2 = "😂 He didn't know if he was stroganoff."; }
-        else if (currentDayName === "Wednesday") { daySpecificText2 = "😂 To avoid hurting their fillings."; }
-        else if (currentDayName === "Thursday") { daySpecificText2 = "😂 Spent the day speaking with a weird Axe-scent."; }
-        else if (currentDayName === "Friday") { daySpecificText2 = "😂 Couldn't find any good material though."; }
-        else if (currentDayName === "Saturday") { daySpecificText2 = "😂 I was charged with vehicular man's laughter."; }
-        else if (currentDayName === "Sunday") { daySpecificText2 = "😂 When reached for comment, he said 'I'll be Bach'."; }
+	let daySpecificText2 = ` Happy ${currentDayName}! Make it a great day.`;
+	if (currentDayName === "Monday") { daySpecificText2 = "😂 'Don't do it,' the chicken said, 'You'll never hear the end of it.'"; }
+	else if (currentDayName === "Tuesday") { daySpecificText2 = "😂 'Quack, quack.'"; }
+	else if (currentDayName === "Wednesday") { daySpecificText2 = "😂 I had to ask him y noT?"; }
+	else if (currentDayName === "Thursday") { daySpecificText2 = "😂 'Hey,' says the Bartender. 'Sure,' says the horse."; }
+	else if (currentDayName === "Friday") { daySpecificText2 = "😂 Fangs-giving."; }
+	else if (currentDayName === "Saturday") { daySpecificText2 = "😂 The population won't budge an inch."; }
+	else if (currentDayName === "Sunday") { daySpecificText2 = "😂 Apparantly she overswept."; }
 	
 	// Push the first dynamic option into the active feed array
     newsFeed.push({
